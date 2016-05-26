@@ -1,0 +1,8 @@
+# https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_rewrite-for-apache-on-ubuntu-14-04
+Options -MultiViews
+RewriteEngine On
+
+RewriteBase /data
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?_req=$1 [QSA,L]

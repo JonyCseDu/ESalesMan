@@ -1,0 +1,556 @@
+
+@font-face {
+  	font-family: "Avenir Next";
+ 	src: url("Avenir/AvenirLTStd-BookOblique.otf"); /* File to be stored at your site */
+}
+
+@font-face {
+  	font-family: "Avenir Next Bold";
+ 	src: url("Avenir/AvenirNextLTPro-Bold.otf"); /* File to be stored at your site */
+}
+
+@font-face {
+  	font-family: "Avenir Next Regular";
+ 	src: url("Avenir/AvenirNextLTPro-Regular.otf"); /* File to be stored at your site */
+}
+body{
+	font-family: "Avenir Next Regular";
+	font-weight: normal;
+	font-size: 16px;
+	/*background-image: url("img/bk1.png");*/
+}
+.navnar{
+	width: 100%;
+}
+.navbar-top > div{
+	box-shadow: 1px 1px 11px #330033;
+	background-color:#151B54;
+}
+
+.navbar-top-right > div {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.navbar-custom-nav1 > li{
+	flex: 1;
+	display: inline;
+	width: 33%;
+}
+
+.navbar-custom-nav1 > li > a, .custome-font > li > a{
+	font-size: 14px;
+	color: #FFFFFF;
+}
+
+.navbar-custom-nav1 > li > a:hover, .navbar-custom-nav1 > li > a:focus, .navbar-custom-nav1 > li > .btn:hover{
+	background-color: #0A0A0A;
+	color: white;
+}
+
+
+.navbar-custom-nav1 > li> button{
+	width: 100%;
+	color: white;
+}
+
+.navbar-top {
+	margin-bottom: 0px;
+	border: 1px solid #ddd;
+}
+
+.topbar{
+	background-color: #151B54;
+}
+
+.divider-vertical {
+    border-left: 1px solid #fff;
+    color:#000000;
+}
+
+/* Dropdown Button */
+.dropbtn {
+	border: none;
+	background-color: #151B54;
+    color: white;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    z-index: 9999;
+    display: none;
+    position: absolute;
+    font-size: 14px;
+    background-color: white;
+    text-align: left;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border-radius: 4px;
+    /** Allow no empty space between this and .dropdown */
+    margin: 0px;
+    box-shadow: 0 0 1px 1px black;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    display: block;
+    border: 1px solid black;
+    height: 50px;
+    padding: 15px 3px 5px 25px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	text-decoration: underline;
+	z-index:1;
+	/*border-top: 1px solid rgba(255,255,255,0.1);
+	border-bottom: 1px solid black;
+	box-shadow: 0 0 1px 1px black;*/
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+	/*padding: 6px;*/
+    background-color: #0A0A0A;
+    box-shadow: 0 0 1px 1px black;
+}
+
+.show {display:block;}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #0A0A0A;
+}
+
+.custom-back1{
+	background-image: url("img/custom-back1.jpg");
+}
+
+.custom-back4{
+	background-image: url("img/bk4.jpg");
+}
+
+.searchbar > div > li > a{
+	color: black;
+	display: block;
+	text-align:center;
+	padding-top: 25px;
+}
+
+.searchbar > div{
+	float: left;
+}
+
+#search-box{
+	overflow: hidden;
+	width: 100%;
+}
+
+#search{
+	background-color: #151B54;
+	color: #FFFFFF;
+	margin-left: 5px;
+}
+
+#mainselection select {
+	z-index: 9999;
+	border: 0;
+	color: white;
+	background: transparent;
+	font-size: 12px;
+	text-align: center;
+	width: 100%;
+	*background: #58B14C;
+	appearance:none;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none;
+}
+
+/* Category Selection box*/
+#mainselection select option{
+	z-index: 9999;
+	color: black;
+	font-size: 12px;
+	display: block;
+	background-color: #fff;
+	height: 40px;
+	line-height: 50px;
+	padding: 12px 20px 10px 20px;
+	*width: 350px;
+	*background: #fff;
+	border-radius: 2px;
+	-webkit-appearance: none;
+}
+
+#mainselection {
+	overflow:hidden;
+	color: white;
+	margin-left: 5px;
+	border-radius: 4px 4px 4px 4px;
+	box-shadow: 1px 1px 11px #330033;
+	background: #086A87;
+}
+
+#advanced{
+	color:black;
+	font-weight: bold;
+	width: 10%;
+	padding-top: 20px;
+	flex: 1;
+}
+
+
+/*Category side bar*/
+.nav-container{
+	float: left;
+	width:20%;
+	margin-left: 2%;
+	margin-top:10px;
+	box-shadow: 0 2px 2px 2px black;
+	transition: all 0.3s linear;
+}
+
+.nav-container> .nav > li{
+	height:50px; 
+	position:relative;
+	background: linear-gradient(#292929, #242424);
+ }
+
+.nav-container > .nav > li > a{
+	border-top: 1px solid rgba(255,255,255,0.1);
+	border-bottom: 1px solid black;
+	text-decoration:none;
+	display:block;
+	height:100%;
+	width:100%;
+	line-height:30px;
+	color:white;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size: 14px;
+	padding-left:5%;
+	border-left:5px solid transparent;
+	letter-spacing:1px;
+	transition: all 0.3s linear;
+}
+
+.nav-container > .nav > li > a:hover{
+	background-color: black;
+	width:90%;
+	z-index:9999;
+	border-top: 1px solid rgba(255,255,255,0.1);
+	border-bottom: 1px solid black;
+	box-shadow: 0 0 1px 1px black;
+}
+
+.nav-container> .nav > li > a:hover .text {
+	display:inline-block;
+	padding-left:10%;
+}	
+
+.remove-margin{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.nav-container > .nav > .active> a{
+  	color: white;
+  	border-left:5px;
+  	background-color: #151B54;
+  	outline:0;
+}
+
+.nav-container> li:not(.active):hover a{
+	color: #FFFFFF;
+	border-left: 5px solid #FCFCFC;
+	background-color: #1B1B1B;
+}
+
+.billboard{
+	padding: 10px white;
+	border: 10px;
+	background-color: white;
+	float: right;
+	width: 70%;
+	margin-right: 3%;
+	box-shadow: 5px 5px 5px 5px black;
+}
+
+.billboard > img{
+	width: 80%;
+	position: relative;
+}
+
+
+.billboard > ul{
+	list-style-type: none;
+	position: absolute;
+	right: 10%; top: 30%; 
+}
+
+
+.product-listing-category{
+	padding: 10px 0px 10px 20px;
+	font-size: 12px;
+}
+.product-img{
+	float: left;
+	width: 40%;
+	padding: 20px;
+	border: 2px solid white;
+}
+
+.product-img > img{
+	width: 100%;
+}
+
+.product-sidebar{
+	float: left;
+	width: 50%;
+	padding: 20px;
+	border: 1px solid white;
+}
+
+.product-name{
+	font-weight: bold;
+}
+
+.product-sidebar > ul > li {
+	list-style: none;
+	padding: 5px;
+}
+
+.buy.option.box{
+	background-color: #D8D8D8;
+	padding: 20px;
+	border-radius: 4px;
+}
+.button {
+    background-color: #151B54; /* Green */
+    border: none;
+    color: white;
+    border-radius: 4px;
+    margin: 0px 0px 0px 20px;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    /*margin: 4px 2px;*/
+    cursor: pointer;
+}
+
+.buy.option.box.bottom{
+	flex: 1;
+	float: left;
+	background-color: #fff;
+	width: 33.33%;
+	box-shadow: 1px 1px 11px #330033;
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+.nav-pills{
+	padding-left: 20px;
+	background-color: white;
+}
+
+.nav-pills >li > a{
+	padding: 6px 6px 6px 6px;
+	background-color: white;
+	box-shadow: 0px 0px 1px #330033;
+	font-weight: bold;
+	font-size: 11px;
+	color: black;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color:black;
+}
+
+.nav > span{
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.dropdown, .dropdown >.btn{
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.dropdown-menu{
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.sell.step > li{
+	width: 33%;
+	font-size: 11px;
+	text-transform: capitalize;
+	float: left;
+}
+
+.sell.step.step > div > p{
+	flex:1;
+	font-weight: bold;
+	font-size: 16px;
+	padding: 10px 0px 0px 20px;
+}
+
+.help{
+	padding-top: 20px;
+	float: left;
+}
+
+.help > a {
+	font-size: 12px;
+	font-weight: bold;
+	padding-left: 20px;
+}
+
+
+.Divider {
+	padding-left: 10px; 
+    border-right:1px solid #16222c; 
+    height:80px;
+    right:249px;
+    top:10px; 
+}
+
+.product-style{
+	float: left;
+	width: 33%;
+	height: 250px;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.product-name{
+	text-align: center;
+	font-weight: bold;
+}
+
+.product-style > img{
+	width: 90%;
+	opacity: 0.7;
+	height: 200px;
+}
+
+.dropdown-menu > li{
+	z-index: 1;
+}
+
+.footer{
+	display: flex;
+	background-color: white;
+	clear: both;
+	width: 100%;
+}
+
+.footer > div{
+	flex: 1;
+	float: left;
+	width: 25%;
+	padding-left: 30px;
+	text-align: left;
+	padding-bottom: 100px;
+}
+
+.footer > div > h4{
+	font-weight: bold;
+}
+
+.footer > div > a{
+	display: block;
+	height: 20px;
+}
+
+.error{
+	font-weight: bold;
+	padding-left: 20px;
+}
+
+
+.listing{
+	padding-left: 30px;	
+	width: 100%;
+	margin-bottom: 50px;
+}
+
+.listing > div{
+	margin-left: 40px;
+	display: block;
+	width: 80%;
+	border-radius: 5px;
+}
+
+.listing > form{
+	border-radius: 5px;
+	margin-left: 40px;
+	width: 80%;
+	margin-top: 8px;
+}
+
+.listing> form> .form-group > .form-control{
+	width: 70%;
+	margin-left: 20px;
+}
+
+.listing> form> .form-group > label{
+	width: 70%;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.listing > form:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+.listing1{
+	height: 80px;
+}
+
+.listing1 > h3{
+	padding-top: 8px;
+	float: left;
+	margin-right: 50px;
+	margin-left: 20px;
+}
+.listing1 > select{
+	float: left;
+	margin-left: 20px;
+	padding:15px;
+	width: 280px;
+	border: 1px solid black;
+	border-radius: 5px;
+	margin-top: 12px;
+}
+
+
+.btn10{
+	margin-left: 20px;
+}
