@@ -70,13 +70,17 @@
 	$ret = json_decode($ret, true);
 	?>
         <div style="width: 100%">
+        <?php if(!isset($ret["fail"])) {?>
             <?php foreach ($ret as $num) : ?>
                 <div class="product-style hvr-float">
-                    <img src="http://localhost/assets/img/mac.jpg">
+                    <a href="<?php echo $base;?>/item?id=$num['id']"> <img src="http://localhost/assets/img/mac.jpg"> </a>
                     <div class="product-name"> <?= htmlspecialchars($num["name"]) ?> </div>
                     <div class="product-name"> <?= htmlspecialchars("BDT " . $num["buyit_price"]) ?> </div>
                 </div>
             <?php endforeach ?>
+          <?php } else {?>
+          		<h2 align="center"> NO PRODUCT FOUND</h2>
+          <?php }?>
         </div>
     </div>
 <section>

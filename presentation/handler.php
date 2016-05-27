@@ -67,11 +67,11 @@ function forward($base, $method, $data = NULL){
 				break;
 				
 			case "item":
-				getItem();
+				getItem($base);
 				break;
 			
 			case "products":
-				getProducts();
+				getProducts($base);
 				break;
 				
 			case "category":

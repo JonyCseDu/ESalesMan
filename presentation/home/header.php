@@ -8,6 +8,8 @@ $cat = json_decode($cat, true);
 ?>
 
 
+
+
 <nav class="navbar" style="margin: 0px; width:100%;">
     <div class="container-fluid custom-back1" style="display: flex;">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,12 +38,12 @@ $cat = json_decode($cat, true);
             </div>
             
             <div style="width: 70%; flex: 7">
-                <form class="navbar-form navbar-left" role="search" style="display:flex;width: 100%;padding:0px 0px 0px 5px; height:50px">
+                <form class="navbar-form navbar-left" role="search" style="display:flex;width: 100%;padding:0px 0px 0px 5px; height:50px" action = "<?php echo $base?>/products" method="get">
                     <div class="form-group-lg" style="flex:3; margin-top: 3px;">
-                        <input type="text" class="form-control" placeholder="What are you looking for?" id = "search-box" name="name">
+                        <input type="text" class="form-control" placeholder="What are you looking for?" id = "search-box" name="name" >
                     </div>
                     <div id="mainselection" style="flex:1;">
-                        <select>
+                        <select name="category_id">
                         
                         	<?php 
                         	foreach ($cat as $val){
@@ -54,7 +56,8 @@ $cat = json_decode($cat, true);
                         </select>
 
                     </div>
-                    <input type="button" value="Search" class="btn" id = "search" style="flex: 1 onclick="redirect()"> 
+                    <button class="btn" id = "search" style="flex: 1"> Search </button>
+                    
                 </form>
             </div>
             
@@ -65,19 +68,6 @@ $cat = json_decode($cat, true);
   </div>
 </nav>
 
-<script>
-	function redirect(){
-		console.log(5 + 6);
-	    var sItem = document.getElementById("search-box").value;
-// 	    var optItem = document.getElementById("selectOption").value;
-	    var url = "/presentation/products?";
-	    var flag = false;
-	    if(sItem.length > 0){
-	        url += "name=" + '"' + sItem + '"';
-	        flag = true;
-	    }
-	
-	    console.log(url);
-	    //window.location=url;
-	}
-</script>
+
+
+

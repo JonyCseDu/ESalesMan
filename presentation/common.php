@@ -21,7 +21,7 @@ function  failed($msg){
 	exit;
 }
 
-function getItem(){
+function getItem($base){
 	if(isset($_GET["id"])){
 		$tmp = ["id" => $_GET["id"]];
 		$url = 'http://localhost/business/product/get_product';
@@ -36,7 +36,7 @@ function getItem(){
 //  $_POST = ["category_id" => $data["category_id"], "name" => $data["name"]
 // $url = 'http://localhost/business/product/get_thumbnail';
 
-function getProducts(){
+function getProducts($base){
 	$tmp = ["category_id" => $_GET["category_id"], "name" => $_GET["name"]];
 	$url = 'http://localhost/business/product/get_product';
 	//print_r($tmp);

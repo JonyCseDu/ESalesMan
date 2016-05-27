@@ -8,8 +8,7 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="http://localhost/assets/style.css">
     <link rel="stylesheet" type="text/css" href="http://localhost/assets/bootstrap/font-awesome/css/font-awesome.min.css">
-    <script src="http://localhost/assets/js/script.js"></script>
-
+    <script type="text/javascript" src="http://localhost/assets/js/script.js"></script>
 </head>
 <body>
 
