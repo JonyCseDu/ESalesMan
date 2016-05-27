@@ -37,21 +37,22 @@
 <hr style="margin-top: 0px; margin-left: 20px; border-color: black">
 
 	<section class="listing">
-    
-
-    <form role="form" method="post" action="post.php" enctype="multipart/form-data">
+    <form role="form" method="post" action="./product/sellAction.php" enctype="multipart/form-data">
     <div class="listing1">
         <h3>Choose Category : </h3>
-        <select name="category_name">
-            <option  value="none">choose one</option>
-            <option value="c1">c1</option>
-            <option>Smartphones</option>
-            <option>Fashion</optgroup>
-            <option>Home Utilities</option>
-            <option>Sports Goods</option>
-            <option>Gardening</option>
-            <option>abcd</option>
-            <option>efgh</option>
+        <select name="category_id">
+        	<?php 
+        		$cat = jsonSend("http://localhost/business/category/get_all_category");
+				$cat = json_decode($cat, true);
+				//print_r($cat);
+// 				echo htmlspecialchars("<option  value='$cat'>$cat</option>");
+				foreach ($cat as $val){
+					$id = $val['id'];
+					$name = $val['name'];;
+					echo "<option  value='$id'> $name </option>";
+				}
+        	?>
+
         </select>
         <p align="right">(Must Choose)</p>
     </div>

@@ -2,7 +2,7 @@
 //  $_POST = ["category_id" => $data["category_id"], "name" => $data["name"]
 // $url = 'http://localhost/business/product/get_thumbnail';
 function get_thumbnail(&$data){
-	$ret = jsonSend("get_items/Product", $data);
+	$ret = jsonSend("get_thumbnail/", $data);
 	echo $ret;
 	$ret = json_decode($ret, true);
 }
@@ -22,15 +22,8 @@ function check_duplicate(&$data){
 // 		"buyit_price" => "20", "quantity" => "5", "image" => "image", "additional_info" => "json"];
 // $url = 'http://localhost/business/product/add_product';
 
-function add_product(&$data){
-	//echo "ok";
-	$data["category_id"] = get_catagory_id($data, "category_name", TRUE);
-	
-	if($data["category_id"] === FALSE) failed("NO CATAGORY");
-	//check_user($data);
-	
+function add_product(&$data){	
 	check_duplicate($data);
-	//print_r($data);
 	
 	//now add product
 	echo jsonSend("add_item/Product", $data);

@@ -1,3 +1,10 @@
+<?php
+    //$data = ["category"=>["Top category", "Electornics", "Mobile", "Daily deals", "Fashion", "Collectibles & Art", "Home Utilities", "Sporting Goods"], "name"=>["Towhid"]];
+   $data["category"] = ["Top category", "Electornics", "Mobile", "Daily deals", "Fashion", "Collectibles & Art", "Home Utilities", "Sporting Goods"];
+//    print_r($_SESSION);
+//    print_r($data);
+   //$data["name"] = ["Towhid"];
+?>
 
 <div class="nav-container custom-back1 remove-margin">
 	  <ul class="nav">

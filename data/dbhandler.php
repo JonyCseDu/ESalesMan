@@ -124,6 +124,32 @@ class DbHandler{
 		}
 	}
 	
+	public function get_thumbnails($table, $cat, $name){
+		if(sizeof($key) != sizeof($val) || sizeof($val) != sizeof($type)){
+			failed("INTERNAL ERROR IN SEARCH PARAMETER");
+		}
+		if($cat != "" && $name != ""){
+			$sql = "SELECT * FROM $table Where category_id = $cat AND name like '$name%'";
+		}
+		else if($cat != ""){
+			$sql = "SELECT * FROM $table Where category_id = $cat";
+		}
+		else if($name != ""){
+			$sql = "SELECT * FROM $table Where name like '$name%'";
+		}
+		else $sql = "SELECT * FROM $table Where 1";
+
+		//echo "$sql<br/>";
+		$result = $this->conn->query($sql);
+		//echo $this->conn->error;
+	
+		if ($result->num_rows > 0) {
+			return $result;
+		} else{
+			failed("NO DATA");
+		}
+	}
+	
 	public function get_specific($table, $key, $val, $type, $tar){
 		if(sizeof($key) != sizeof($val) || sizeof($val) != sizeof($type)){
 			failed("INTERNAL ERROR IN SEARCH PARAMETER");
@@ -140,7 +166,9 @@ class DbHandler{
 			//echo "$tar <br>";
 		}
 		$sql = "SELECT $tar FROM $table Where ";
+		
 		$size = sizeof($key);
+		if($size == 0) $sql = $sql . "1";
 		for($i=0; $i<$size; $i++){
 			$sql = $sql . "$key[$i] = ";
 			if($type[$i] == "s"){

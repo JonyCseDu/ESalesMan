@@ -8,8 +8,9 @@ function get_category(&$data){
 	echo jsonSend("get_item/Category/$id");
 }
 
+$url = 'http://localhost/business/category/get_all';
 function get_all_category(){
-	echo jsonSend("get_all_category");
+	echo jsonSend("get_all/Category", ["ret1" => "id", "ret2" => "name"]);
 }
 
 

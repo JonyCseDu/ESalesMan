@@ -39,9 +39,14 @@ class Handler{
 			failed("NO SERVICE REQUEST");
 		}
 		
-		else if($this->method[0] == "get_all_category"){
-			
-			$this->jHandler->service($this->method[0], NULL, NULL);
+		else if($this->method[0] == "get_all"){
+			//echo $json;
+			$this->jHandler->service($this->method[0], $json, $this->method[1]);
+		}
+		
+		else if($this->method[0] == "get_thumbnail"){
+			//echo $json;
+			$this->jHandler->service($this->method[0], $json, NULL);
 		}
 		
 		else if($this->method[0] == "create_db"){

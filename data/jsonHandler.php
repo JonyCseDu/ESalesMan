@@ -14,25 +14,32 @@ class jsonHandler{
 	
 	public function service($action, $json = NULL, $table = NULL, $id = NULL){
 		$this->reset($table, $id);
+		$data = json_decode($json, true);
 		if($json != NULL){
-			$data = json_decode($json, true);
+			//$data = json_decode($json, true);
 			//print_r($data);
 			$this->handleJson($data);
 		}
 		
 		switch ($action) {
-			case "get_all_category":
-				//echo "ok";
-				$result = $this->get_all("Category");
-				$this->dumpName($result);
+			case "get_all":
+				//print_r ($this->ret); 
+				$result = $this->mydb->get_specific($this->table, $this->key, $this->val, $this->type, $this->ret);
+				$this->dumpJson($result);
 				break;
+			
+			case "get_thumbnail":
+				//print_r ($data);
+				$result = $this->mydb->get_thumbnails("Product", $this->val[0], $this->val[1]);
+				$this->dumpJson($result, true);
+				break;
+				
 			case "get_item":
 				$result = $this->mydb->get_row($this->table, $this->id);
 				$this->dumpJson($result);
 				break;
 			
 			case "get_specific":
-					
 					$result = $this->mydb->get_specific($this->table, $this->key, $this->val, $this->type, $this->ret);
 					$this->dumpJson($result);
 					break;
@@ -112,14 +119,14 @@ class jsonHandler{
 		password VARCHAR(50) NOT NULL,
 		email VARCHAR(100) NOT NULL,
 		phone VARCHAR(15),
-		credit INT(10) NOT NULL,
+		credit DOUBLE DEFAULT 0,
 		image VARCHAR(100),
-		reg_date TIMESTAMP
+		reg_date DATETIME DEFAULT NULL
 		)";
 	
 		//echo $sql;
 		if($this->mydb->runSql($sql) == FALSE){
-			//failed("DB CREATE TABLE User FAIL");
+			failed("DB CREATE TABLE User FAIL");
 		}
 	
 		// create table Category
@@ -127,12 +134,13 @@ class jsonHandler{
 		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 		name VARCHAR(50) NOT NULL,
 	    parent_id INT(10) UNSIGNED,
+		additional_info VARCHAR(300),
 		image VARCHAR(100)
 		)";
 	
 		//echo $sql;
 		if($this->mydb->runSql($sql) == FALSE){
-			//failed("DB CREATE Catagory Transaction FAIL");
+			failed("DB CREATE Catagory Transaction FAIL");
 		}
 	
 		// create table Product
@@ -141,34 +149,34 @@ class jsonHandler{
 	    category_id INT(10) UNSIGNED NOT NULL,
 		user_id INT(10) UNSIGNED NOT NULL,
 		name VARCHAR(50) NOT NULL,
-	    min_price INT(10) UNSIGNED NOT NULL,
-	    buyit_price INT(10) UNSIGNED NOT NULL,
-		quantity INT(10) UNSIGNED NOT NULL,
+	    min_price DOUBLE DEFAULT 0,
+	    buyit_price DOUBLE DEFAULT 0,
+		quantity INT(9) UNSIGNED NOT NULL,
+		num_of_bids INT(10) UNSIGNED DEFAULT 0,
 		image VARCHAR(100),
 	    additional_info VARCHAR(300),
-		valid_time TIMESTAMP,
+		valid_time DATETIME DEFAULT NULL,
 	    FOREIGN KEY (category_id) REFERENCES Category(id),
 		FOREIGN KEY (user_id) REFERENCES User(id)
 		)";
 	
 		//echo $sql;
 		if($this->mydb->runSql($sql) == FALSE){
-			//failed("DB CREATE Product Transaction FAIL");
+			failed("DB CREATE Product Transaction FAIL");
 		}
 	
 		// create table Price
 		$sql = "CREATE TABLE Price (
-		id INT(10) UNSIGNED PRIMARY KEY,
+		product_id INT(10) UNSIGNED PRIMARY KEY,
 	    user_id INT(10) UNSIGNED,
-	    best_price INT(10) UNSIGNED,
-	    num_of_bids INT(10) UNSIGNED,
-		FOREIGN KEY (id) REFERENCES Product(id),
+	    best_price DOUBLE DEFAULT 0,
+		FOREIGN KEY (product_id) REFERENCES Product(id),
 	    FOREIGN KEY (user_id) REFERENCES User(id)
 		)";
 	
 		//echo $sql;
 		if($this->mydb->runSql($sql) == FALSE){
-			//failed("DB CREATE Price Transaction FAIL");
+			failed("DB CREATE Price Transaction FAIL");
 		}
 	
 		// create table Cart
@@ -177,13 +185,13 @@ class jsonHandler{
 	    user_id INT(10) UNSIGNED NOT NULL,
 	    product_ids VARCHAR(100) NOT NULL,
 	    quantities VARCHAR(100) NOT NULL,
-		cost INT(10) UNSIGNED NOT NULL,
+		cost DOUBLE DEFAULT 0,
 	    FOREIGN KEY (user_id) REFERENCES User(id)
 		)";
 	
 		//echo $sql;
 		if($this->mydb->runSql($sql) == FALSE){
-			//failed("DB CREATE Cart Transaction FAIL");
+			failed("DB CREATE Cart Transaction FAIL");
 		}
 	
 		// create table Transaction
@@ -191,13 +199,13 @@ class jsonHandler{
 		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 		transaction_id VARCHAR(50) NOT NULL,
 		user_id INT(10) UNSIGNED NOT NULL,
-	    cost INT(10) UNSIGNED NOT NULL,
+	    cost DOUBLE DEFAULT 0,
 		FOREIGN KEY (user_id) REFERENCES User(id)
 		)";
 	
 		//echo $sql;
 		if($this->mydb->runSql($sql) == FALSE){
-			//failed("DB CREATE TABLE Transaction FAIL");
+			failed("DB CREATE TABLE Transaction FAIL");
 		}
 		
 		success("ALL TABLE CREATED SUCCESSFULLY");
@@ -313,13 +321,13 @@ class jsonHandler{
 	}
 	
 	
-	private function dumpJson(&$result)
+	private function dumpJson(&$result, $isThumbNail = false)
 	{
 		$ret = array();
 		while($row = $result->fetch_assoc()) {
 			array_push($ret, $row);
 		}
-		if(count($ret) == 1) $ret = $ret[0];
+		if(!$isThumbNail && count($ret) == 1) $ret = $ret[0];
 		$json = json_encode($ret);
 		//var_dump($json);
 		echo $json;

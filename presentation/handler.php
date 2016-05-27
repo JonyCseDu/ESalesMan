@@ -59,11 +59,6 @@ function forward($base, $method, $data = NULL){
 				if(!isset($_SESSION["id"])) failed("You are not logged in");
 				$view = file_get_contents('http://localhost/');
 				break;
-				
-			case "buy":
-				getItem();
-				break;
-			
 			case "sell":
 				if(!isset($_SESSION["id"])){
 					failed("You are not logged in");
@@ -71,12 +66,13 @@ function forward($base, $method, $data = NULL){
 				include_once './product/sell.php';
 				break;
 				
-			case "products":
-				print_r();
-				include_once './products.php';
+			case "item":
+				getItem();
 				break;
-				
 			
+			case "products":
+				getProducts();
+				break;
 				
 			case "category":
 				$view = file_get_contents('http://localhost/');
@@ -96,49 +92,5 @@ function forward($base, $method, $data = NULL){
 	}
 }
 
-function jsonSend($url, $data){
-	$json = json_encode($data);
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	$output = curl_exec($ch);
-
-	// close curl resource to free up system resources
-	curl_close($ch);
-	return $output;
-}
-
-function  failed($msg){
-	$_SESSION["fail"] = $msg;
-	header("Location: http://localhost/presentation/error");
-	exit;
-}
-
-function view($view, $data = NULL) {
-	include_once '$view';
-}
-
-function getItem(){
-	$data = NULL;
-	if(isset($_GET["id"])){
-		$data = ["id" => $_GET["id"]];
-		//print_r($data);
-		if($data == NULL){
-			failed("NO SUCH PRODUCT");
-		}
-		else{
-			$url = 'http://localhost/business/product/get_product';
-			$tmp = $data;
-			include_once './product/buy.php';
-		}
-	}	
-	else{
-		failed("Product Id Absent");
-	}
-	
-}
+include_once 'common.php';
 

@@ -3,7 +3,7 @@
 <?php 
 
 $cat = jsonSend("http://localhost/business/category/get_all_category");
-$cat = json_decode($cat);
+$cat = json_decode($cat, true);
 
 ?>
 
@@ -22,12 +22,15 @@ $cat = json_decode($cat);
                 <li class="dropdown" style="width: 100%; font-size: 15px; background-color: #E6E6E6";>
                     <a href="#"class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Shop by Category<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <?php foreach ($cat as $num) : ?>
-                            <?php if($key > "0") { ?>
-                                <li role="separator" class="divider"></li>
-                            <?php } ?>
-                            <li><a href="#"><?= htmlspecialchars($num) ?></a></li>
-                        <?php endforeach ?>
+                        
+                        <?php 
+                        	foreach ($cat as $val){
+                        		$id = $val['id'];
+                        		$name = $val['name'];;
+                        		//echo "<option  value='$id'> $name </option>";
+                        		echo "<li><a href='#'> $name </a></li>";
+                        	}
+                        ?>
                     </ul>
                 </li>
             </div>
@@ -39,9 +42,15 @@ $cat = json_decode($cat);
                     </div>
                     <div id="mainselection" style="flex:1;">
                         <select>
-                            <?php foreach ($cat as  $num) : ?>
-                                <option><?= htmlspecialchars($num) ?></option>
-                            <?php endforeach ?>
+                        
+                        	<?php 
+                        	foreach ($cat as $val){
+                        		$id = $val['id'];
+                        		$name = $val['name'];;
+                        		echo "<option  value='$id'> $name </option>";
+                        	}
+                        	?>
+                            
                         </select>
 
                     </div>
