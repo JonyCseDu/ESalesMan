@@ -31,7 +31,7 @@
         
       </ul>
       
-      <ul class="nav navbar-nav navbar-custom-nav1 navbar-right custom-font1" style="width: 30%; display: flex">
+      <ul class="nav navbar-nav navbar-custom-nav1 navbar-right custom-font1" style="width: 40%; display: flex">
         
 <?php if (isset($_SESSION["id"])) { ?>
 
@@ -44,7 +44,7 @@
         </li>
     
 <?php } else { ?>
-    	<li class="dropdown" style="flex:2;" align = "center">
+    	<li class="dropdown" style="flex:1;" align = "center">
           	<button class="dropbtn" style="display: block; height: 100%;font-size: 14px; font-weight: normal">Guest</button>
 	        <ul class="dropdown-content container-fluid" style="padding: 0px">
 	          <a href="<?php echo $base;?>/login">Log In</a>
@@ -55,21 +55,46 @@
         
 
         
-        <li align = "center" style="flex : 1";>
-            <button type="button" class="btn btn-lg topbar">
-                <span class="fa fa-bell " aria-hidden="true">
-                    <span style="font-size: 12px">Notifcation</span>
-                </span>
-        </button>
-    </li>
+        <li align = "center">
+            <button class="dropbtn" style="display: block; height: 100%;font-size: 14px;">
+                <span class="fa fa-bell" aria-hidden="true"></span> Notification
+            </button>
+        </li>
 
-        <li align = "center" style="flex:1">
-        <button type="button" class="btn btn-lg topbar">
-            <span class="fa fa-shopping-cart" aria-hidden="true">
-                <span style="font-size: 12px">Cart</span>
-            </span>
-    </button>
-    </li>
+
+        <li class="dropdown" align = "center">
+            <button class="dropbtn" style="display: block; height: 100%;font-size: 14px;font-weight: normal">
+                <span class="fa fa-shopping-cart" aria-hidden="true"></span> Cart
+            </button>
+
+            <div class="cart" align="center">
+                <div class="cartitem">
+                    <img src="http://localhost/assets/img/iphone.jpg">
+                    <div>product1</div>
+                    <div>Price: BDT 100.0</div>
+                </div>
+
+                <hr class="nomargin">
+                <div class="cartitem">
+                    <img src="http://localhost/assets/img/iphone.jpg">
+                    <div>product2</div>
+                    <div>Price: BDT 100.0</div>
+                </div>
+                
+                <hr class="nomargin">
+                <div class="cartitem">
+                    <img src="http://localhost/assets/img/iphone.jpg">
+                    <div>product2</div>
+                    <div>Price: BDT 100.0</div>
+                </div>
+
+                <div class="cart-checkout">
+                    <div style="text-align:center;">Estimated Total: BDT xxx</div>
+                    <button type="button" class="btn btn-default">Proceed To Checkout</button>
+                </div>
+            </div>
+
+        </li>
     
       </ul>
     </div><!-- /.navbar-collapse -->

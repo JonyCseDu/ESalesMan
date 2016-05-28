@@ -57,6 +57,7 @@ class Handler{
 	
 	
 	public function getService($json = NULL){
+		//print_r($this->method);
 		
 		if(count($this->method) >= 2){
 			$data = $this->getJson($json); // POST json data to dictionary
@@ -88,10 +89,14 @@ class Handler{
 				else if($this->method[1] == "get_product"){
 					get_product($data);
 				}
+				else if($this->method[1] == "get_product_id"){
+					get_product_id($data);
+				}
 				else if($this->method[1] == "add_product"){
 					add_product($data);
 				}
 				else if($this->method[1] == "update_product"){
+					echo "updating...";
 					update_product($data);
 				}
 				else if($this->method[1] == "buy"){

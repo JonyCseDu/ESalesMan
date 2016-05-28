@@ -155,7 +155,7 @@ class jsonHandler{
 		num_of_bids INT(10) UNSIGNED DEFAULT 0,
 		image VARCHAR(100),
 	    additional_info VARCHAR(300),
-		valid_time DATETIME DEFAULT NULL,
+		update_time TIMESTAMP NOT NULL,
 	    FOREIGN KEY (category_id) REFERENCES Category(id),
 		FOREIGN KEY (user_id) REFERENCES User(id)
 		)";

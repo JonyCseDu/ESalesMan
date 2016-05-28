@@ -129,15 +129,16 @@ class DbHandler{
 			failed("INTERNAL ERROR IN SEARCH PARAMETER");
 		}
 		if($cat != "" && $name != ""){
-			$sql = "SELECT * FROM $table Where category_id = $cat AND name like '$name%'";
+			$sql = "SELECT * FROM $table Where category_id IN $cat AND name like '$name%'";
 		}
 		else if($cat != ""){
-			$sql = "SELECT * FROM $table Where category_id = $cat";
+			$sql = "SELECT * FROM $table Where category_id IN $cat";
 		}
 		else if($name != ""){
 			$sql = "SELECT * FROM $table Where name like '$name%'";
 		}
 		else $sql = "SELECT * FROM $table Where 1";
+		$sql = $sql . " ORDER BY update_time ASC";
 
 		//echo "$sql<br/>";
 		$result = $this->conn->query($sql);
@@ -175,7 +176,7 @@ class DbHandler{
 				$sql = $sql . "'" . $val[$i] . "'";
 			}
 			else $sql = $sql . $val[$i];
-			if($i != $size-1) $sql =  $sql . ", ";
+			if($i != $size-1) $sql =  $sql . " AND ";
 		}
 		//echo "$sql<br/>";
 		$result = $this->conn->query($sql);

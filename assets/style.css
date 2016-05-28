@@ -13,7 +13,7 @@
   	font-family: "Avenir Next Regular";
  	src: url("Avenir/AvenirNextLTPro-Regular.otf"); /* File to be stored at your site */
 }
-body{
+body, .fa{
 	font-family: "Avenir Next Regular";
 	font-weight: normal;
 	font-size: 16px;
@@ -38,7 +38,15 @@ body{
 	width: 33%;
 }
 
-.navbar-custom-nav1 > li > a, .custome-font > li > a{
+.navbar-right > li > button{
+	flex: 1;
+	padding-top: 16px; 
+	display: inline;
+	width: 33%;
+	padding-bottom: 12px;
+}
+
+.navbar-custom-nav1 > li > a, .navbar-custpom-nav1 > li > .dropdown > a{
 	font-size: 14px;
 	color: #FFFFFF;
 }
@@ -48,6 +56,12 @@ body{
 	color: white;
 }
 
+/*.navbar-right > li:hover{
+	border: 1px solid red;
+	background-color: #0A0A0A;
+	color: black;
+}*/
+
 
 .navbar-custom-nav1 > li> button{
 	width: 100%;
@@ -56,7 +70,7 @@ body{
 
 .navbar-top {
 	margin-bottom: 0px;
-	border: 1px solid #ddd;
+	border: 2px solid #ddd;
 }
 
 .topbar{
@@ -88,15 +102,15 @@ body{
     display: none;
     position: absolute;
     font-size: 14px;
-    background-color: white;
     text-align: left;
     top: 100%;
     left: 0;
     width: 100%;
     border-radius: 4px;
-    /** Allow no empty space between this and .dropdown */
+    background-color: white;
+
     margin: 0px;
-    box-shadow: 0 0 1px 1px black;
+    /*box-shadow: 0 0 1px 1px black;*/
 }
 
 /* Links inside the dropdown */
@@ -110,13 +124,11 @@ body{
     display: block;
 }
 
+
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
 	text-decoration: underline;
 	z-index:1;
-	/*border-top: 1px solid rgba(255,255,255,0.1);
-	border-bottom: 1px solid black;
-	box-shadow: 0 0 1px 1px black;*/
 }
 
 /* Show the dropdown menu on hover */
@@ -124,12 +136,6 @@ body{
     display: block;
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-	/*padding: 6px;*/
-    background-color: #0A0A0A;
-    box-shadow: 0 0 1px 1px black;
-}
 
 .show {display:block;}
 
@@ -554,3 +560,79 @@ tr:nth-child(even){background-color: #f2f2f2}
 .btn10{
 	margin-left: 20px;
 }
+
+.name-pic{
+	width: 80%;
+}
+
+.name-pic > div{
+	float: left;
+	width: 30%;
+}
+
+
+
+/* Show the dropdown menu on hover */
+
+
+
+.cart{
+	z-index: 9999;
+    display: none;
+    position: absolute;
+   
+    top: 100%;
+    right: 0;	
+    border-radius: 4px;
+
+    margin: 0px;
+	width: 350px;
+	float: right;
+	color: black;
+	font-weight: bold;
+}
+
+.dropdown:hover .cart {
+    display: block;
+}
+
+.cartitem{
+	/*border: 0.1px solid black;*/
+    height: 80px;
+    
+    padding: 20px;
+    display: block;
+    background-color: white;
+}
+
+.cartitem > img{
+	float: left;
+	width: 10%;
+}
+
+.cartitem div{
+	text-align: left;
+	padding-left: 20px;
+	margin-left: 30px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.cart-checkout{
+	display: block;
+    background-color: white;
+	height: 100px;
+}
+
+.cart-checkout button{
+	margin-bottom: 15px;	
+	margin-top: 15px;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #70bf41;
+}
+
+.nomargin{
+	margin: 0px;
+}
+

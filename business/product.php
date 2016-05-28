@@ -2,9 +2,29 @@
 //  $_POST = ["category_id" => $data["category_id"], "name" => $data["name"]
 // $url = 'http://localhost/business/product/get_thumbnail';
 function get_thumbnail(&$data){
+	$ret = get_child_catagory($data["category_id"]);
+	$data["category_id"] = "( " . $ret . " )";
+	//echo $data["category_id"];
+	
 	$ret = jsonSend("get_thumbnail/", $data);
 	echo $ret;
-	$ret = json_decode($ret, true);
+	//$ret = json_decode($ret, true);
+}
+
+function get_child_catagory($id){
+	$json = jsonSend("get_specific/Category/", ["parent_id" => $id,"ret1" => id]);
+	//echo "OK". $json;
+	$json = json_decode($json, true);
+
+	$ret = $id;
+	if(isset($json["fail"])) return $ret;
+	
+	foreach ($json as $val){
+		$ret = $ret . ", " . get_child_catagory($val['id']);
+	}
+	
+	//echo $ret;
+	return $ret;
 }
 
 // $_POST = ["id"=>"1"];
@@ -14,16 +34,25 @@ function get_product(&$data){
 	echo jsonSend("get_item/Product/$id");
 }
 
-function check_duplicate(&$data){
-	
+
+
+// $_POST = [""user_id""=>"1", "name"=>"jony"];
+// $url = 'http://localhost/business/product/get_product_id';
+function get_product_id($data){
+	//print_r($data);
+	echo jsonSend("get_specific/Product/", ["user_id"=>$data["user_id"], "name"=>$data["name"], "ret1"=>"id"]);
 }
+
 
 // $_POST = ["category_name"=>"c1", "user_id" => "1", "name" => "p1", "min_price" => "10",
 // 		"buyit_price" => "20", "quantity" => "5", "image" => "image", "additional_info" => "json"];
 // $url = 'http://localhost/business/product/add_product';
 
 function add_product(&$data){	
-	check_duplicate($data);
+	$ret = jsonSend("get_specific/Product/", ["user_id"=>$data["user_id"], "name"=>$data["name"], "ret1"=>"id"]);
+	//echo "get id returns : " . $ret ."</br>";
+	$ret = json_decode($ret, true);
+	if(!isset($ret["fail"])) failed("Product already Added");
 	
 	//now add product
 	echo jsonSend("add_item/Product", $data);
@@ -34,9 +63,10 @@ function add_product(&$data){
 // $url = 'http://localhost/business/product/update_product';
 
 function update_product(&$data){
-	$data["category_id"] = get_catagory_id($data, "category_name", TRUE);
-	if($data["category_id"] === FALSE) failed("NO CATAGORY");
-	
+	if(isset($data["category_id"])){
+		$data["category_id"] = get_catagory_id($data, "category_name", TRUE);
+		if($data["category_id"] === FALSE) failed("NO CATAGORY");
+	}
 	//check_owner($data);
 	
 	$id = $data["id"];

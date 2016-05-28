@@ -15,3 +15,7 @@ function redirect(){
     console.log(url);
     window.location=url;
 }
+
+function myFucntion(){
+	alert(5+4);
+}

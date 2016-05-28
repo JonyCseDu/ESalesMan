@@ -37,9 +37,9 @@ function getItem($base){
 // $url = 'http://localhost/business/product/get_thumbnail';
 
 function getProducts($base){
+	if(!isset($_GET["category_id"])) $_GET["category_id"] = 1;
 	$tmp = ["category_id" => $_GET["category_id"], "name" => $_GET["name"]];
-	$url = 'http://localhost/business/product/get_product';
-	//print_r($tmp);
+	print_r($tmp);
 	include_once './product/products.php';
 	
 }

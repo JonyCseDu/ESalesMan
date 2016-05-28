@@ -77,6 +77,11 @@ function forward($base, $method, $data = NULL){
 			case "category":
 				$view = file_get_contents('http://localhost/');
 				break;
+			
+			case "profile":
+				//echo "profile";
+				include_once './user/profile.php';
+				break;
 				
 			case "error":
 				include_once './error.php';
