@@ -7,7 +7,30 @@ $cat = json_decode($cat, true);
 
 ?>
 
-
+<script>
+function showHint(str) {
+    if (str.length == 0) {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var arr = JSON.parse(xmlhttp.responseText);
+                var hint = "";
+                for(var i=0;i<arr.length;i++){
+			        var obj = arr[i];
+			        hint += "<h1>" + arr[i] + "<h1>"
+			        
+			    }
+                document.getElementById("txtHint").innerHTML = hint;
+            }
+        };
+        xmlhttp.open("GET", "http://localhost/business/other/search_name?table=Product&name=" + str, true);
+        xmlhttp.send();
+    }
+}
+</script>
 
 
 <nav class="navbar" style="margin: 0px; width:100%;">
@@ -18,30 +41,18 @@ $cat = json_decode($cat, true);
           <a href="<?php echo $base;?>"> <img src="http://localhost/assets/img/ebay.png"/> </a>
         </div>
         
-    
-        <div class="searchbar" style="width: 80%; display: flex; flex: 1;">
-            <div style="display: flex; flex: 2">
-                <li class="dropdown" style="width: 100%; font-size: 15px; background-color: #E6E6E6";>
-                    <a href="#"class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Shop by Category<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        
-                        <?php 
-                        	foreach ($cat as $val){
-                        		$id = $val['id'];
-                        		$name = $val['name'];;
-                        		//echo "<option  value='$id'> $name </option>";
-                        		echo "<li><a href='#'> $name </a></li>";
-                        	}
-                        ?>
-                    </ul>
-                </li>
-            </div>
             
             <div style="width: 70%; flex: 7">
                 <form class="navbar-form navbar-left" role="search" style="display:flex;width: 100%;padding:0px 0px 0px 5px; height:50px" action = "<?php echo $base?>/products" method="get">
                     <div class="form-group-lg" style="flex:3; margin-top: 3px;">
-                        <input type="text" class="form-control" placeholder="What are you looking for?" id = "search-box" name="name" >
+                        <input type="text" class="form-control" placeholder="What are you looking for?" id = "search-box" name="name" onkeyup="showHint(this.value)">
+                         
+                         <!-- ADD SUGGESTION STYLE -->
+                         <h1>Suggestions: <div id="txtHint"></div> </h1>
+                         
+                         
                     </div>
+	               
                     <div id="mainselection" style="flex:1;">
                         <select name="category_id">
                         

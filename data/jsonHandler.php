@@ -45,6 +45,8 @@ class jsonHandler{
 					break;
 				
 			case "search_name":
+// 				echo $this->table;
+// 				echo $data["name"];
 				$this->search_name($this->table, $data["name"]);
 				break;
 				
@@ -107,7 +109,7 @@ class jsonHandler{
 	private function getType($ind){
 		if(($ind == "name") || ($ind === "image") || ($ind === "email") || ($ind === "password")
 				|| ($ind === "status") || ($ind === "additional_info") || ($ind === "phone") || ($ind === "transaction_id")
-				|| ($ind === "product_ids") || ($ind === "quantities")) return "s";
+				|| ($ind === "data")) return "s";
 		else return "i";
 	}
 	
@@ -115,8 +117,8 @@ class jsonHandler{
 		// create table User
 		$sql = "CREATE TABLE User (
 		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-		name VARCHAR(50) NOT NULL,
-		password VARCHAR(50) NOT NULL,
+		name VARCHAR(100) NOT NULL,
+		password VARCHAR(256) NOT NULL,
 		email VARCHAR(100) NOT NULL,
 		phone VARCHAR(15),
 		credit DOUBLE DEFAULT 0,
@@ -132,7 +134,7 @@ class jsonHandler{
 		// create table Category
 		$sql = "CREATE TABLE Category (
 		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-		name VARCHAR(50) NOT NULL,
+		name VARCHAR(100) NOT NULL,
 	    parent_id INT(10) UNSIGNED,
 		additional_info VARCHAR(300),
 		image VARCHAR(100)
@@ -148,7 +150,7 @@ class jsonHandler{
 		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	    category_id INT(10) UNSIGNED NOT NULL,
 		user_id INT(10) UNSIGNED NOT NULL,
-		name VARCHAR(50) NOT NULL,
+		name VARCHAR(100) NOT NULL,
 	    min_price DOUBLE DEFAULT 0,
 	    buyit_price DOUBLE DEFAULT 0,
 		quantity INT(9) UNSIGNED NOT NULL,
@@ -183,8 +185,7 @@ class jsonHandler{
 		$sql = "CREATE TABLE Cart (
 		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	    user_id INT(10) UNSIGNED NOT NULL,
-	    product_ids VARCHAR(100) NOT NULL,
-	    quantities VARCHAR(100) NOT NULL,
+	    data VARCHAR(500) NOT NULL,
 		cost DOUBLE DEFAULT 0,
 	    FOREIGN KEY (user_id) REFERENCES User(id)
 		)";
@@ -198,7 +199,6 @@ class jsonHandler{
 		$sql = "CREATE TABLE Transaction (
 		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 		transaction_id VARCHAR(50) NOT NULL,
-		user_id INT(10) UNSIGNED NOT NULL,
 	    cost DOUBLE DEFAULT 0,
 		FOREIGN KEY (user_id) REFERENCES User(id)
 		)";
@@ -286,12 +286,12 @@ class jsonHandler{
 
 		while($row = $result->fetch_assoc()) {
 			foreach ($row as $key => $value) {
-				$distance = levenshtein("$term", "$value");
-				//echo "$distance <br/>";
+				$distance = levenshtein("$term", substr($value, 0, strlen($term)));
+				//echo substr($value, 0, strlen($term)) ." : $distance <br/>";
 				if($distance <= strlen($term) && $distance < 3){
 					$ret[$value] =  $distance;
 				}
-				//echo "$this->key -> $row[$this->key] <br/>";
+				//echo "$this->key  $row[$this->key] <br/>";
 			}
 		}
 		

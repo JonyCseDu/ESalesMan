@@ -3,9 +3,16 @@
 // $_POST = ["id"=>"1"];
 // $url = 'http://localhost/business/category/get_category';
 
-function get_category(&$data){
+function get_category($data){
 	$id = $data["id"];
 	echo jsonSend("get_item/Category/$id");
+}
+
+// $_POST = ["id"=>"1"];
+// $url = 'http://localhost/business/category/get_category_name';
+function get_category_name($data){
+	$id = $data["id"];
+	echo jsonSend("get_specific/Category/", ["id" => $id, "ret1" => name]);
 }
 
 $url = 'http://localhost/business/category/get_all';

@@ -66,11 +66,16 @@ class Handler{
 			
 			if($this->method[0] == "user"){
 				include_once 'user.php';
+				
 				if($this->method[1] == "login"){
 					login($data);
 				}
 				else if($this->method[1] == "signup"){
 					signup($data);
+				}
+				else if($this->method[1] == "get_user"){
+					
+					get_user($data);
 				}
 				else if($this->method[1] == "update_account"){
 					update_account($data);
@@ -124,6 +129,10 @@ class Handler{
 				else if($this->method[1] == "update_category"){
 					update_category($data);
 				}
+				else if($this->method[1] == "get_category_name"){
+					get_category_name($data);
+				}
+				
 				else{
 					failed("NO SUCH SERVICE IN Category");
 				}
@@ -132,6 +141,7 @@ class Handler{
 			else if($this->method[0] == "other"){
 				include_once 'other.php';
 				if($this->method[1] == "search_name"){
+					$data = $_GET;
 					search_name($data);
 				}
 				

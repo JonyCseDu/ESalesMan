@@ -38,7 +38,7 @@
 		<li class="dropdown" style="flex:2;" align = "center">
           	<button class="dropbtn" style="display: block; height: 100%;font-size: 14px; font-weight: normal">My Account</button>
 	        <ul class="dropdown-content container-fluid" style="padding: 0px">
-	          <a href="#">View Profile</a>
+	          <a href="<?php echo $base;?>/profile">View Profile</a>
 	          <a href="./user/logoutAction.php">Log Out</a>
 	        </ul>
         </li>
@@ -60,38 +60,46 @@
                 <span class="fa fa-bell" aria-hidden="true"></span> Notification
             </button>
         </li>
+        
+<?php 
+	$ara = array();
+	if(isset($_COOKIE["cart"])) $ara = unserialize($_COOKIE["cart"]);
+	//echo "OK";
+	//print_r($ara);
+?>
 
 
         <li class="dropdown" align = "center">
             <button class="dropbtn" style="display: block; height: 100%;font-size: 14px;font-weight: normal">
                 <span class="fa fa-shopping-cart" aria-hidden="true"></span> Cart
             </button>
-
             <div class="cart" align="center">
-                <div class="cartitem">
-                    <img src="http://localhost/assets/img/iphone.jpg">
-                    <div>product1</div>
-                    <div>Price: BDT 100.0</div>
-                </div>
+            
+<?php if(count($ara)>0){ 
+	$cost = 0 ?>
+	
+	<?php foreach ($ara as $id => $cart){
+		$cost += $cart["buyit_price"] * $cart["quantity"];
+		?>
+		<div class="cartitem">
+               <img src="<?php echo $cart["image"];?>">
+               <strong><?php echo $cart["name"];?></strong>
+               <strong>Price: <?php echo $cart["buyit_price"] * $cart["quantity"] ;?></strong>
+        </div>
+        <hr class="nomargin">
+	<?php }?>
+	<div class="cart-checkout">
+                    <div style="text-align:center;">Estimated Total: BDT <?php echo $cost;?></div>
+                    <a type="button" class="btn btn-default" href="./product/checkOut.php">Proceed To Checkout</a>
+     </div>
+<?php }else{?>
+<div class="cartitem">
+	<h3> <?php echo "No Item in cart"; ?> </h3>
+</div>
+<?php }?>
 
-                <hr class="nomargin">
-                <div class="cartitem">
-                    <img src="http://localhost/assets/img/iphone.jpg">
-                    <div>product2</div>
-                    <div>Price: BDT 100.0</div>
-                </div>
-                
-                <hr class="nomargin">
-                <div class="cartitem">
-                    <img src="http://localhost/assets/img/iphone.jpg">
-                    <div>product2</div>
-                    <div>Price: BDT 100.0</div>
-                </div>
 
-                <div class="cart-checkout">
-                    <div style="text-align:center;">Estimated Total: BDT xxx</div>
-                    <button type="button" class="btn btn-default">Proceed To Checkout</button>
-                </div>
+
             </div>
 
         </li>

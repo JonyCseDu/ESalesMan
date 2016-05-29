@@ -15,7 +15,7 @@
                 <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="<?php echo $base;?>/login">Sign In</a></div>
             </div>  
             <div class="panel-body" >
-                <form id="signupform" class="form-horizontal" role="form" method="post" action="./user/signupAction.php">
+                <form id="signupform" class="form-horizontal" role="form" method="post" action="./user/signupAction.php" enctype="multipart/form-data">
                     <div id="signupalert" style="display:none" class="alert alert-danger">
                         <p>Error:</p>
                         <span></span>
@@ -43,11 +43,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="lastname" class="col-md-3 control-label">Phone</label>
+                        <label for="Phone" class="col-md-3 control-label">Phone</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="phone" placeholder="Last Name">
+                            <input type="text" class="form-control" name="phone" placeholder="Phone">
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+			            <label for="file">Add Profile Picture:</label>
+			            <input type="file" name="image" style="margin-left: 20px">
+			        </div>
                 
 
                     <div class="form-group">

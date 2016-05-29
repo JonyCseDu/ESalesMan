@@ -8,7 +8,11 @@ function add_credit($id, $credit){
 		$credit += $ret["credit"];
 	}
 	if($credit < 0) failed("NOT ENOUGH CREDIT");
-	echo jsonSend("update_item/User/$id", ["credit" => $credit]);
+	$ret = jsonSend("update_item/User/$id", ["credit" => $credit]);
+	$ret = json_decode($ret, true);
+	
+	if(isset($ret["fail"])) failed($ret["fail"]);
+	else return $ret;
 }
 
 function check_credit($id, $credit){
@@ -32,8 +36,8 @@ function check_user($id, &$data, $isUserNeeded = FALSE){
 	$ret = json_decode($ret, true);
 	//print_r($ret);
 	
-	// match password
-	if($ret["password"] === $data["password"]){
+	// match password 
+	if(password_verify($data["password"], $ret["password"])){
 		unset($data["password"]);
 		if($isUserNeeded == FALSE) unset($data["user_id"]);
 		return TRUE;

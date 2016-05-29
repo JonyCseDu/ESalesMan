@@ -73,15 +73,15 @@
         <?php if(!isset($ret["fail"])) {?>
             <?php foreach ($ret as $num) : ?>
                 <div class="product-style hvr-float">
-                    <a href="<?php echo $base;?>/item?id=<?php echo $num['id'];?>"> 
+                    <a href="<?php echo $base;?>/item?id=<?php echo $num['id'];?>" class="products-img"> 
                     	<?php if($num["image"] == ""){?>
                     		<img src="http://localhost/assets/img/no_image.jpg" height="200" width="300">
                     	<?php }else{?>
                     		<img src="<?php echo $num["image"];?>" height="200" width="300">
                     	<?php }?> 
                     </a>
-                    <div class="product-name"> <?= htmlspecialchars($num["name"]) ?> </div>
-                    <div class="product-name"> <?= htmlspecialchars("BDT " . $num["buyit_price"]) ?> </div>
+                    <div class="product-name">  <?php echo $num["name"];?> </div>
+                    <div class="product-name">  <?php echo "BDT " . $num["buyit_price"];?> </div>
                 </div>
             <?php endforeach ?>
           <?php } else {?>

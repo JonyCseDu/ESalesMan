@@ -1,7 +1,7 @@
 <?php
 //  $_POST = ["category_id" => $data["category_id"], "name" => $data["name"]
 // $url = 'http://localhost/business/product/get_thumbnail';
-function get_thumbnail(&$data){
+function get_thumbnail($data){
 	$ret = get_child_catagory($data["category_id"]);
 	$data["category_id"] = "( " . $ret . " )";
 	//echo $data["category_id"];
@@ -29,7 +29,7 @@ function get_child_catagory($id){
 
 // $_POST = ["id"=>"1"];
 // $url = 'http://localhost/business/product/get_product';
-function get_product(&$data){
+function get_product($data){
 	$id = $data["id"];
 	echo jsonSend("get_item/Product/$id");
 }
@@ -48,7 +48,7 @@ function get_product_id($data){
 // 		"buyit_price" => "20", "quantity" => "5", "image" => "image", "additional_info" => "json"];
 // $url = 'http://localhost/business/product/add_product';
 
-function add_product(&$data){	
+function add_product($data){	
 	$ret = jsonSend("get_specific/Product/", ["user_id"=>$data["user_id"], "name"=>$data["name"], "ret1"=>"id"]);
 	//echo "get id returns : " . $ret ."</br>";
 	$ret = json_decode($ret, true);
@@ -62,7 +62,7 @@ function add_product(&$data){
 // 		"buyit_price" => "200", "quantity" => "5", "image" => "image", "additional_info" => "json"];
 // $url = 'http://localhost/business/product/update_product';
 
-function update_product(&$data){
+function update_product($data){
 	if(isset($data["category_id"])){
 		$data["category_id"] = get_catagory_id($data, "category_name", TRUE);
 		if($data["category_id"] === FALSE) failed("NO CATAGORY");
@@ -75,7 +75,7 @@ function update_product(&$data){
 	echo jsonSend("update_item/Product/$id", $data);
 }
 
-function buy(&$data){
+function buy($data){
 	$id = $data["id"];
 	unset($data["id"]);
 	
@@ -98,7 +98,7 @@ function buy(&$data){
 // $_POST = ["user_id" => 1, "best_price" => 100];
 // $url = 'http://localhost/business/product/bid';
 
-function bid(&$data){
+function bid($data){
 	$id = $data["id"];
 	unset($data["id"]);
 

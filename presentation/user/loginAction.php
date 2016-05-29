@@ -4,7 +4,7 @@ include_once './../action.php';
 // echo "OK";
 // send to business layer
 $ret = jsonSend($url, $_POST);
-//echo $ret;
+echo $ret;
 $ret = json_decode($ret, true);
 
 if(isset($ret["fail"])){
@@ -14,7 +14,7 @@ if(isset($ret["fail"])){
 else{
 	$_SESSION['id'] = $ret["id"];
 	$_SESSION['name'] = $ret["name"];
-	$_SESSION['password'] = $ret["password"];
+	$_SESSION['password'] = $_POST["password"];
 	
 	header("Location: http://localhost/presentation/");
 	exit;

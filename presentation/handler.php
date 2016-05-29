@@ -79,7 +79,9 @@ function forward($base, $method, $data = NULL){
 				break;
 			
 			case "profile":
-				//echo "profile";
+				if(!isset($_SESSION["id"])){
+					failed("You are not logged in");
+				}
 				include_once './user/profile.php';
 				break;
 				

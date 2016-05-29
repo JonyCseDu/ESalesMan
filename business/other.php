@@ -12,7 +12,7 @@ function check_account(&$data){
 	}
 }
 
-// $_POST = ["user_id" => 1, "password"=>"tow", "cost" => 100, "product_ids" => "json", "quantities" => "json"];
+// $_POST = ["user_id" => 1, "password"=>"tow", "cost" => 100, "data" => "json"];
 // $url = 'http://localhost/business/other/process_cart';
 
 function process_cart(&$data){
@@ -22,13 +22,14 @@ function process_cart(&$data){
 		check_credit($data["user_id"], $data["cost"]);
 		add_credit($data["user_id"], -$data["cost"]);
 	
-		echo jsonSend("add_item/Cart/", $data);
+		$ret = jsonSend("add_item/Cart/", $data);
+		$ret = json_decode($ret, true);
+		if(isset($ret["success"])) success("cart processing success");
+		else failed($ret["fail"]);
 	}
 	else{
 		failed("Verification failed");
 	}
-	
-	
 }
 
 // $_POST = ["id" => 1];
@@ -48,26 +49,36 @@ function check_duplicate_transaction($transaction_id){
 	}
 }
 
-// $_POST = ["user_id" => 1, "password"=>"tow", "cost" => 100, "transaction_id" => "bkash_1"];
+// $_POST = ["user_id" => 1, "password"=>"tow", "transaction_id" => "bkash_1"];
 // $url = 'http://localhost/business/other/add_transaction';
 
-function add_transaction(&$data){
+function add_transaction($data){
+	//print_r($data);
 	if(check_user($data["user_id"], $data, TRUE)){
-		check_duplicate_transaction($data["transaction_id"]);
-		
-		$ret = jsonSend("add_item/Transaction/", $data);
+		//echo $transaction_id;
+		$ret = jsonSend("get_specific/Transaction", ["transaction_id" => $data["transaction_id"], "ret1" => "cost"]);
+		//echo $ret;
 		$ret = json_decode($ret, true);
-		if($ret["success"]){
-			echo "success";
-			add_credit($data["user_id"], $data["cost"]);
+		$cost = $ret["cost"];
+		
+		if(isset($ret["fail"])) failed("NO SUCH TRANSACTION");
+		else{ 
+			$ret = jsonSend("drop_items/Transaction",  ["transaction_id" => $data["transaction_id"]]);
+			echo $ret;
+			$ret = json_decode($ret, true);
+			if(isset($ret["fail"])) failed("Error in droping transaction");
 		}
-		else failed($ret["fail"]);
+		
+		$ret = add_credit($data["user_id"], $cost);
+		echo json_encode($ret);
 	}
 	else{
 		failed("Verification failed");
 	}
 }
 
+// $_POST = ["table" => "product", "name"=>"asus"];
+// $url = 'http://localhost/business/other/search_name';
 
 function search_name($data){
 	$table = $data["table"];

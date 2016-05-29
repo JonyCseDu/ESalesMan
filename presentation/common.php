@@ -39,7 +39,7 @@ function getItem($base){
 function getProducts($base){
 	if(!isset($_GET["category_id"])) $_GET["category_id"] = 1;
 	$tmp = ["category_id" => $_GET["category_id"], "name" => $_GET["name"]];
-	print_r($tmp);
+	//print_r($tmp);
 	include_once './product/products.php';
 	
 }

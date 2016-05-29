@@ -3,14 +3,14 @@
 // $_POST = ["email" => "jony@gmail.com", "password" => "jony"];
 // $url = 'http://localhost/business/user/login';
 
-function login(&$data){
+function login($data){
 	// get password
 	$ret = jsonSend("get_specific/User", ["email" => $data["email"], "ret1" => "id", "ret2" => "password", "ret3" => "name"]);
 	$ret = json_decode($ret, true);
-	//print_r($ret);
+	$data["password"] = trim($data["password"]);
 	
-	// match password
-	if($ret["password"] === $data["password"]){
+	
+	if(password_verify($data["password"], $ret["password"])){
 		//unset($ret["password"]);
 		$ret = json_encode($ret);
 		echo $ret;
@@ -18,6 +18,14 @@ function login(&$data){
 	else{
 		failed("wrong user name or password") ;
 	}
+}
+
+// $_POST = ["id" => 1];
+// $url = 'http://localhost/business/user/get_user';
+
+function get_user($data){
+	$id = $data["id"];
+	echo jsonSend("get_item/User/$id");
 }
 
 // $_POST = ["name" => "jony", "email" => "jony@gmail.com", "password" => "jony", "phone" => "012", "image" => "image"];
@@ -33,10 +41,16 @@ function signup(&$data){
 	
 	//now add item
 	if(isset($ret["fail"])){
+		// hash password
+		$pass = trim($data["password"]);
+		$data["password"] = password_hash($pass, PASSWORD_BCRYPT);
+		
+		
 		$ret = jsonSend("add_item/User", $data);
 		$ret = json_decode($ret, true);
 		//print_r($ret);
 		if(isset($ret["success"])){
+			$data["password"] = $pass;
 			return login($data);
 // 			success("You Have Successfully signed up");
 		}
@@ -52,7 +66,8 @@ function signup(&$data){
 // $_POST = ["id"=>"1", "old_password" => "jony", "name" => "tow", "email" => "tow@gmail.com", "password" => "tow", "phone" => "012", "image" => "image"];
 // $url = 'http://localhost/business/user/update_account';
 
-function update_account(&$data){
+function update_account($data){
+	//echo "update account";
 	if(count($data) == 0) echo "NO DATA </br>";
 	
 	$ret = jsonSend("get_specific/User", ["id" => $data["id"], "ret1" => "password"]);
@@ -60,8 +75,7 @@ function update_account(&$data){
 	//print_r($ret);
 	//print_r($data);
 	
-	
-	if($ret["password"] === $data["old_password"]){
+	if(password_verify($data["old_password"], $ret["password"])){
 		$id = $data["id"];
 		unset($data["id"]);
 		unset($data["old_password"]);

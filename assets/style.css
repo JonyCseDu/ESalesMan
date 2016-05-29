@@ -321,6 +321,13 @@ body, .fa{
 	border: 2px solid white;
 }
 
+.products-img{
+	float: center;
+	width: 40%;
+	padding: 15px;
+	border: 2px solid white;
+}
+
 .product-img > img{
 	width: 100%;
 }
