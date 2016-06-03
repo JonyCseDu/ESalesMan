@@ -42,10 +42,36 @@ class Handler{
 		fclose($myfile);
 	}
 	
+	private function specialCheck($tok){
+		if(strtolower($tok) == "and" || strtolower($tok) == "or") failed("Malicious data");
+		for($i=0; $i<strlen($tok); $i++){
+			if($tok[$i]=="+" || $tok[$i]=="-" || $tok[$i]=="!" || $tok[$i]=="+" || $tok[$i]=="#" || $tok[$i]=="/"){
+				failed("Some Special Character found Which we don't support");
+			}
+		}
+	}
+	
+	private function check($val){
+		$token = strtok($string, " \t\n");
+		while ($token !== false)
+		{
+			$this->specialCheck($token);
+			$token = strtok(" \t\n");
+		}
+	}
+	
+	private function checkSql($data){
+		foreach ($data as $key => $val){
+			$this->check($key);
+			$this->check($val);
+		}
+	}
+	
 	private function getJson($json){
 		if($json != NULL){
 			$data = json_decode($json, true);
 			 //$this->dumpfile($data);
+			 $this->checkSql($data);
 			return $data;
 		}
 		else {
@@ -80,6 +106,9 @@ class Handler{
 				else if($this->method[1] == "update_account"){
 					update_account($data);
 				}
+				else if($this->method[1] == "update_verify"){
+					update_verify($data);
+				}
 				else{
 					failed("NO SUCH SERVICE IN USER");
 				}
@@ -93,6 +122,9 @@ class Handler{
 				}
 				else if($this->method[1] == "get_product"){
 					get_product($data);
+				}
+				else if($this->method[1] == "get_auction"){
+					get_auction($data);
 				}
 				else if($this->method[1] == "get_product_id"){
 					get_product_id($data);
@@ -110,6 +142,12 @@ class Handler{
 				else if($this->method[1] == "bid"){
 					bid($data);
 				}
+				else if($this->method[1] == "get_bid"){
+					get_bid($data);
+				}
+				else if($this->method[1] == "get_last_bid_user"){
+					get_last_bid_user($data);
+				}
 				else{
 					failed("NO SUCH SERVICE IN Product");
 				}
@@ -120,8 +158,14 @@ class Handler{
 				if($this->method[1] == "get_all_category"){
 					get_all_category();
 				}
+				else if($this->method[1] == "get_child_category"){
+					get_child_category($data);
+				}
 				else if($this->method[1] == "get_category"){
 					get_category($data);
+				}
+				else if($this->method[1] == "get_additional_info"){
+					get_additional_info($this->method[2]);
 				}
 				else if($this->method[1] == "add_category"){
 					add_category($data);
@@ -162,6 +206,15 @@ class Handler{
 				
 				else if($this->method[1] == "send_notification"){
 					send_notification($data);
+				}
+				else if($this->method[1] == "drop_notification"){
+					drop_notification($data);
+				}
+				else if($this->method[1] == "new_code"){
+					new_code($data);
+				}
+				else if($this->method[1] == "get_code"){
+					get_code($data);
 				}
 				
 				else{

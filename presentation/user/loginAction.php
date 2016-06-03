@@ -8,7 +8,7 @@ echo $ret;
 $ret = json_decode($ret, true);
 
 if(isset($ret["fail"])){
-	failed("Login Failed: User Name or Password Error");
+	failed($ret["fail"]);
 }
 
 else{

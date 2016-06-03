@@ -5,10 +5,11 @@
 
 function login($data){
 	// get password
-	$ret = jsonSend("get_specific/User", ["email" => $data["email"], "ret1" => "id", "ret2" => "password", "ret3" => "name"]);
+	$ret = jsonSend("get_specific/User", ["email" => $data["email"], "ret1" => "id", "ret2" => "password", "ret3" => "name", "ret4" => "verified"]);
+	//echo $ret;
 	$ret = json_decode($ret, true);
 	$data["password"] = trim($data["password"]);
-	
+	if($ret["verified"] != "yes") failed("You are not verified User Please Verify your Email");
 	
 	if(password_verify($data["password"], $ret["password"])){
 		//unset($ret["password"]);
@@ -51,8 +52,8 @@ function signup(&$data){
 		//print_r($ret);
 		if(isset($ret["success"])){
 			$data["password"] = $pass;
-			return login($data);
-// 			success("You Have Successfully signed up");
+			
+			success("You Have Successfully signed up");
 		}
 		else{
 			failed($ret["fail"]);
@@ -87,5 +88,12 @@ function update_account($data){
 	else{
 		failed("WRONG PASSWORD");
 	}
+}
+
+function update_verify($data){
+	$ret = jsonSend("get_specific/User", ["email" => $data["email"], "ret1" => "id"]);
+	$ret = json_decode($ret, true);
+	$id = $ret["id"];
+	echo jsonSend("update_item/User/$id", ["verified" => "yes"]);
 }
 

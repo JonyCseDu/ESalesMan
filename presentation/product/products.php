@@ -8,10 +8,10 @@
 
 
 
-<section  class="custom-back4" style="width: 100%; display: inline-block; padding-top: 20px;">
+<section  class="custom-back4" style="width: 100%; display: inline-block; padding-top: 20px; padding-bottom: 30px">
 	<?php  include_once('./home/left_panel.php');  ?>
 
-    <div class="jumbotron billboard custom-back1">
+    <div class="jumbotron ballboard custom-back1">
       	<div style="display:flex; font-size: 12px; padding: 0px 20px 0px 20px">
             <div class="buy option box bottom center">
             <h4>Why buy on e-Salesmen?</h4>
@@ -36,15 +36,43 @@
         </div> 
         
         <hr>
+    </div>
+</section>
 
-        <div style="border: padding: 5px; height: 40px">
-            <ul class="nav navbar-nav nav-pills"">
-                <li class="active" data-toggle="tab"><a href="#">All Listings</a></li>
-                <li role="presentation"><a href="#">Auction</a></li>
-                <li role="presentation"><a href="#">Buy it now</a></li>
+<script>
+$(document).ready(function(){
+	$(".auction").show();
+	$(".fixed").show();
+	
+	$("#all_listing").click(function(){
+		//alert("all_listing");
+		$(".auction").show();
+		$(".fixed").show();
+	});
+	
+	$("#fixed").click(function(){
+		//alert("fixed");
+		$(".auction").hide();
+		$(".fixed").show();
+	});
+
+	$("#auction").click(function(){
+		$(".auction").show();
+		$(".fixed").hide();
+	});
+});
+</script>
+
+<div class="custom-back5" style="margin-top: 0px">
+    <div class="product-container custom-back5">    
+        <div style="padding: 15px; height: 40px; margin-top: -8px">
+            <ul class="nav navbar-nav nav-pills">
+                <li class="active" data-toggle="tab"><a href="#" id="all_listing">All Listings</a></li>
+                <li role="presentation"><a href="#" id="auction">Auction</a></li>
+                <li role="presentation"><a href="#" id="fixed">Fixed</a></li>
             </ul>
 
-            <div class="nav" style="float: right; padding-right: 20px;">
+            <div class="nav" style="float: right; padding-right: 20px; z-index: 4">
                 <span>Sort:</span>
                 <div class="dropdown" >
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"        aria-expanded="true">
@@ -62,34 +90,51 @@
         </div>
 
         <hr style="clear: both">
-	<?php 
-	$url = 'http://localhost/business/product/get_thumbnail';
-	//print_r($tmp);
-	$ret = jsonSend($url, $tmp);
-	//echo $ret;
-	$ret = json_decode($ret, true);
-	?>
-        <div style="width: 100%">
-        <?php if(!isset($ret["fail"])) {?>
-            <?php foreach ($ret as $num) : ?>
-                <div class="product-style hvr-float">
-                    <a href="<?php echo $base;?>/item?id=<?php echo $num['id'];?>" class="products-img"> 
-                    	<?php if($num["image"] == ""){?>
-                    		<img src="http://localhost/assets/img/no_image.jpg" height="200" width="300">
-                    	<?php }else{?>
-                    		<img src="<?php echo $num["image"];?>" height="200" width="300">
-                    	<?php }?> 
-                    </a>
-                    <div class="product-name">  <?php echo $num["name"];?> </div>
-                    <div class="product-name">  <?php echo "BDT " . $num["buyit_price"];?> </div>
-                </div>
-            <?php endforeach ?>
-          <?php } else {?>
-          		<h2 align="center"> NO PRODUCT FOUND</h2>
-          <?php }?>
+        <?php 
+        $url = 'http://localhost/business/product/get_thumbnail';
+        //print_r($tmp);
+        $ret = jsonSend($url, $tmp);
+        //echo $ret;
+        $ret = json_decode($ret, true);
+        ?>
+        <div style="width: 100%; display: inline-block;" class="custom-back5">
+            <?php if(!isset($ret["fail"])) {?>
+                <?php foreach ($ret as $num) : ?>
+                    <div class="product-style hvr-float" class = "<?php echo $num['type'];?>">
+                        <a href="<?php echo $base;?>/item?id=<?php echo $num['id'];?>" > 
+                            <?php if($num["image"] == ""){?>
+                                <img style='' src="http://localhost/assets/img/no_image.jpg">
+                            <?php }else{?>
+                                <img style='' src="<?php echo $num["image"];?>">
+                            <?php }?> 
+                        </a>
+                        <div class="product-name">  <?php echo ucfirst($num["name"]);?> </div>
+                        <div class="product-name">  <?php echo ucfirst($num["type"]);?> </div>
+                        <div class="price">  
+                            
+                            <?php if($num["quantity"] == 0) {?>
+                            <span style="padding: 5px; color: red; font-size: 20px">
+                            	SOLD
+                            </span>
+                            
+                            <?php } else {?>
+                            <span style="padding: 5px; color: #151B54; font-size: 20px">
+                            <?php echo "৳ " . $num["buyit_price"];?> 
+                            </span>
+                            <?php }?>
+                        </div>
+                        
+                        
+                    </div>
+                <?php endforeach ?>
+              <?php } else {?>
+                    <h2 align="center"> NO PRODUCT FOUND</h2>
+              <?php }?>
+            </div>
         </div>
     </div>
-<section>
+
+</div>
 
 <?php include_once('./home/footer.php');?>
 

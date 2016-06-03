@@ -9,6 +9,7 @@ $cat = json_decode($cat, true);
 
 <script>
 function showHint(str) {
+    
     if (str.length == 0) {
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -19,16 +20,23 @@ function showHint(str) {
                 var arr = JSON.parse(xmlhttp.responseText);
                 var hint = "";
                 for(var i=0;i<arr.length;i++){
-			        var obj = arr[i];
-			        hint += "<h1>" + arr[i] + "<h1>"
-			        
-			    }
+                    var obj = arr[i];
+                    
+                    hint += "<li onClick=\"selectlocation('" + obj + "')\">" + obj + "</li>";
+                    
+                }
                 document.getElementById("txtHint").innerHTML = hint;
             }
         };
         xmlhttp.open("GET", "http://localhost/business/other/search_name?table=Product&name=" + str, true);
         xmlhttp.send();
     }
+    $("#suggesstion").show();
+}
+
+function selectlocation(val) {
+    $("#search-box").val(val);
+    $("#suggesstion").hide();
 }
 </script>
 
@@ -38,7 +46,7 @@ function showHint(str) {
         <!-- Brand and toggle get grouped for better mobile display -->
         
         <div style="width: 20%" align = "center">
-          <a href="<?php echo $base;?>"> <img src="http://localhost/assets/img/ebay.png"/> </a>
+          <a href="<?php echo $base;?>"> <img style="padding-top: 10px;height: 60px; width: 70%" src="http://localhost/assets/img/draw.png"/> </a>
         </div>
         
             
@@ -48,21 +56,26 @@ function showHint(str) {
                         <input type="text" class="form-control" placeholder="What are you looking for?" id = "search-box" name="name" onkeyup="showHint(this.value)">
                          
                          <!-- ADD SUGGESTION STYLE -->
-                         <h1>Suggestions: <div id="txtHint"></div> </h1>
+                         <div id="suggesstion" class="hid">
+                            <ul id="txtHint" class="search-results">
+                            
+                            </ul>
+                         </div>
+                         
                          
                          
                     </div>
-	               
+                   
                     <div id="mainselection" style="flex:1;">
                         <select name="category_id">
                         
-                        	<?php 
-                        	foreach ($cat as $val){
-                        		$id = $val['id'];
-                        		$name = $val['name'];;
-                        		echo "<option  value='$id'> $name </option>";
-                        	}
-                        	?>
+                            <?php 
+                            foreach ($cat as $val){
+                                $id = $val['id'];
+                                $name = $val['name'];;
+                                echo "<option  value='$id'> $name </option>";
+                            }
+                            ?>
                             
                         </select>
 

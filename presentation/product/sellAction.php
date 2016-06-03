@@ -1,5 +1,19 @@
 <?php
 include_once './../action.php';
+// print_r($_POST);
+$json = array();
+foreach ($_POST as $key => $val){
+	if($key[0] == '_'){
+		$json[substr($key, 1)] = $val;
+		unset($_POST[$key]);
+	}
+	if(count($json) > 0){
+		$_POST["additional_info"] = json_encode($json);
+	}
+}
+
+print_r($_POST);
+
 $image = $_FILES["image"]["name"];
 
 if(isset($_SESSION["id"])){
@@ -19,9 +33,10 @@ if(isset($ret["fail"])){
 else{
 	$ret = jsonSend('http://localhost/business/product/get_product_id', ["user_id" => $_SESSION["id"], "name" => $_POST["name"]]);
 	$ret = json_decode($ret, true);
-// 	echo "OK => " . $ret["id"];
+	// 	echo "OK => " . $ret["id"];
 	$id = $ret["id"];
 	if($image != ""){
+		
 // 		echo "image adding";
 		$ret = uploadImage("/var/www/html/assets/img/products/", $id);
 		$ret = "http://localhost/assets/img/products/" . $ret;
@@ -33,7 +48,7 @@ else{
 			exit;
 		}
 	}
-	failed("Success : Product Add Success");
+	header("Location: http://localhost/presentation/item?id=" . $id);
 	exit;
 }
 

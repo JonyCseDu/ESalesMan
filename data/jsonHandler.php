@@ -15,6 +15,8 @@ class jsonHandler{
 	public function service($action, $json = NULL, $table = NULL, $id = NULL){
 		$this->reset($table, $id);
 		$data = json_decode($json, true);
+		
+		
 		if($json != NULL){
 			//$data = json_decode($json, true);
 			//print_r($data);
@@ -63,6 +65,10 @@ class jsonHandler{
 				$this->mydb->update_row($this->table, $this->key, $this->val, $this->type, $this->id);
 				break;
 				
+			case "update_bid":
+				$this->update_bid($data["product_id"], $data["user_id"], $data["bid_price"]);
+				break;
+				
 			case "drop_items":
 				$this->mydb->drop_items($this->table, $this->key, $this->val, $this->type, $this->id);
 				break;
@@ -77,6 +83,17 @@ class jsonHandler{
 	
 			default:
 				failed("NO SUCH SERVICE");
+		}
+	}
+	
+	private function update_bid($product_id, $user_id, $bid_price){
+		$sql = "UPDATE Price SET bid_price=$bid_price WHERE product_id=$product_id AND user_id=$user_id";
+		//echo $sql;
+		if($this->mydb->runSql($sql)){
+			success("Bidding success");
+		}
+		else{
+			failed("Bidding failed");
 		}
 	}
 	
@@ -109,7 +126,8 @@ class jsonHandler{
 	private function getType($ind){
 		if(($ind == "name") || ($ind === "image") || ($ind === "email") || ($ind === "password")
 				|| ($ind === "status") || ($ind === "additional_info") || ($ind === "phone") || ($ind === "transaction_id")
-				|| ($ind === "data")) return "s";
+				|| ($ind === "data") || ($ind === "type") || ($ind === "last_date")
+				|| ($ind === "reg_date") || ($ind === "hash")|| ($ind === "verified")) return "s";
 		else return "i";
 	}
 	
@@ -123,7 +141,8 @@ class jsonHandler{
 		phone VARCHAR(15),
 		credit DOUBLE DEFAULT 0,
 		image VARCHAR(100),
-		reg_date DATETIME DEFAULT NULL
+		reg_date VARCHAR(15) DEFAULT NULL,
+		verified VARCHAR(15) 
 		)";
 	
 		//echo $sql;
@@ -151,13 +170,11 @@ class jsonHandler{
 	    category_id INT(10) UNSIGNED NOT NULL,
 		user_id INT(10) UNSIGNED NOT NULL,
 		name VARCHAR(100) NOT NULL,
-	    min_price DOUBLE DEFAULT 0,
+		type VARCHAR(10) NOT NULL,
 	    buyit_price DOUBLE DEFAULT 0,
-		quantity INT(9) UNSIGNED NOT NULL,
-		num_of_bids INT(10) UNSIGNED DEFAULT 0,
+		quantity INT(10) UNSIGNED NOT NULL,
+	    additional_info VARCHAR(500),
 		image VARCHAR(100),
-	    additional_info VARCHAR(300),
-		update_time TIMESTAMP NOT NULL,
 	    FOREIGN KEY (category_id) REFERENCES Category(id),
 		FOREIGN KEY (user_id) REFERENCES User(id)
 		)";
@@ -166,12 +183,28 @@ class jsonHandler{
 		if($this->mydb->runSql($sql) == FALSE){
 			failed("DB CREATE Product Transaction FAIL");
 		}
+		
+		// create table Auction
+		$sql = "CREATE TABLE Auction (
+		id INT(10) UNSIGNED PRIMARY KEY,
+	    start_price DOUBLE DEFAULT 0,
+	    last_bid_price DOUBLE DEFAULT 0,
+		num_of_bids INT(10) UNSIGNED DEFAULT 0,
+		last_date VARCHAR(15) NOT NULL,
+		FOREIGN KEY (id) REFERENCES Product(id)
+		)";
+		
+		//echo $sql;
+		if($this->mydb->runSql($sql) == FALSE){
+			failed("DB CREATE Auction FAIL");
+		}
 	
 		// create table Price
 		$sql = "CREATE TABLE Price (
-		product_id INT(10) UNSIGNED PRIMARY KEY,
+		product_id INT(10) UNSIGNED,
 	    user_id INT(10) UNSIGNED,
-	    best_price DOUBLE DEFAULT 0,
+	    bid_price DOUBLE DEFAULT 0,
+		PRIMARY KEY (product_id, user_id),
 		FOREIGN KEY (product_id) REFERENCES Product(id),
 	    FOREIGN KEY (user_id) REFERENCES User(id)
 		)";
@@ -199,13 +232,39 @@ class jsonHandler{
 		$sql = "CREATE TABLE Transaction (
 		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 		transaction_id VARCHAR(50) NOT NULL,
-	    cost DOUBLE DEFAULT 0,
-		FOREIGN KEY (user_id) REFERENCES User(id)
+	    cost DOUBLE DEFAULT 0
 		)";
 	
 		//echo $sql;
 		if($this->mydb->runSql($sql) == FALSE){
 			failed("DB CREATE TABLE Transaction FAIL");
+		}
+		
+		
+		// create table Verify
+		$sql = "CREATE TABLE Verify (
+		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+		email VARCHAR(50) NOT NULL,
+	    hash VARCHAR(50) NOT NULL
+		)";
+		
+		//echo $sql;
+		if($this->mydb->runSql($sql) == FALSE){
+			failed("DB CREATE TABLE Verify FAIL");
+		}
+		
+		
+		// create table Notification
+		$sql = "CREATE TABLE Notification (
+		id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+		user_id UNSIGNED,
+	    product_id UNSIGNED,
+		data VARCHAR(500)
+		)";
+		
+		//echo $sql;
+		if($this->mydb->runSql($sql) == FALSE){
+			failed("DB CREATE TABLE Notification FAIL");
 		}
 		
 		success("ALL TABLE CREATED SUCCESSFULLY");
@@ -235,6 +294,30 @@ class jsonHandler{
 	
 		if($this->mydb->runSql($sql) == FALSE){
 			echo "DB DROP TABLE Cart FAIL </br>";
+		}
+		
+		// drop table Product
+		$sql = "DROP TABLE Auction";
+		//echo $sql . "</br>";
+		
+		if($this->mydb->runSql($sql) == FALSE){
+			echo "DB DROP TABLE Auction FAIL </br>";
+		}
+		
+		// drop table Notification
+		$sql = "DROP TABLE Notification";
+		//echo $sql . "</br>";
+		
+		if($this->mydb->runSql($sql) == FALSE){
+			echo "DB DROP TABLE Notification FAIL </br>";
+		}
+		
+		// drop table Verify
+		$sql = "DROP TABLE Verify";
+		//echo $sql . "</br>";
+		
+		if($this->mydb->runSql($sql) == FALSE){
+			echo "DB DROP TABLE Verify FAIL </br>";
 		}
 	
 		
@@ -286,7 +369,7 @@ class jsonHandler{
 
 		while($row = $result->fetch_assoc()) {
 			foreach ($row as $key => $value) {
-				$distance = levenshtein("$term", substr($value, 0, strlen($term)));
+				$distance = levenshtein(strtolower($term), strtolower(substr($value, 0, strlen($term))));
 				//echo substr($value, 0, strlen($term)) ." : $distance <br/>";
 				if($distance <= strlen($term) && $distance < 3){
 					$ret[$value] =  $distance;

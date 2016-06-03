@@ -1,9 +1,12 @@
 
 
 <?php 
-
-$cat = jsonSend("http://localhost/business/category/get_all_category");
+session_start();
+//echo "OK : " . $_SESSION["left_panel"];
+$cat = jsonSend("http://localhost/business/category/get_child_category", ["id" => $_SESSION["left_panel"]]);
+//echo $cat;
 $cat = json_decode($cat, true);
+//print_r($cat);
 
 ?>
 
@@ -11,9 +14,10 @@ $cat = json_decode($cat, true);
 	  <ul class="nav">
 	  <?php 
             foreach ($cat as $val){
+            	//print_r($val);
             	$id = $val['id'];
             	$name = $val['name'];
-            	 if($val["id"] == "1") { ?>
+            	 if($val["id"] == $_SESSION["left_panel"]) { ?>
             	 		<li class="active">
             		<?php } else { ?>
             	     	<li>

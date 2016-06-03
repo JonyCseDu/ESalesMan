@@ -6,55 +6,71 @@
 	//echo $user;
 ?>
 
-	<div>
-		<section class="custom-back1">
-	    <div class="name-pic container">
+
+	<div class="custom-back1" style="height: 200px;">
+	    <div class="name-pic" style="float: left">
 	    	<?php if($user["image"] != ""){?>
 	    		<div><img src="<?php echo $user["image"];?>"></div>
 	    	<?php }else{?>
-	    		<div><img src="http://localhost/assets/img/no_image.jpg"></div>
+	    		<div style="height: 200px"><img src="http://localhost/assets/img/laptop.png"></div>
 	    	<?php }?>
-	    	
-	       
 	    </div>
-	     	<div><p style="font-size: 22px; padding-top: 100px">
-	            	<strong>Name: <?php echo $user["name"];?></strong>
-	        	</p>
-	        	
-	      	</div>
-		</section>
 
-		<section class="custom-back1" style="padding-bottom: 100px; padding-top:50px">
-		    <table align="center">
-		        <tr>
-		            <td><a href="#">Name</a></td>
-		            <td><?php echo $user["name"];?></td>
+     	<div style="float: left; width: 20%">
+	     	<p style="font-size: 22px; padding-top: 100px; padding-left: 30px">
+	            <strong>Name: <?php echo $user["name"];?></strong>
+	        </p>
+      	</div>
+	</div>
+
+	<div class="custom-back1" style="padding-bottom: 100px; padding-top:50px;">
+	    <table align="center">
+	        <tr>
+	            <td>Name</td>
+	            <td><?php echo $user["name"];?></td>
+	        </tr>
+	        
+	        <tr>
+	            <td>E-Mail</td>
+	            <td><?php echo $user["email"];?></td>
+	        </tr>
+	        <tr>
+	            <td >Phone</td>
+	            <td><?php echo $user["phone"];?></td>
+	        </tr>
+	        <tr>
+	            <td>Credit</td>
+	            <td><?php echo $user["credit"];?></td>
+	        </tr>
+	    </table>
+	</div>
+	<div class="custom-back1" style="padding-bottom: 100px;">
+		<form action="./user/update.php" method="post">
+			<table align="center">
+	        	<tr>
+		            <td>Old Password: </td>
+		            <td><input type="text" name="old_password"> * </td>
 		        </tr>
 		        
 		        <tr>
-		            <td>E-Mail</td>
-		            <td><?php echo $user["email"];?></td>
+		            <td>Name: </td>
+		            <td><input type="text" name="name"> </td>
 		        </tr>
 		        <tr>
-		            <td >Phone</td>
-		            <td><?php echo $user["phone"];?></td>
+		            <td>New Password: </td>
+		            <td><input type="text" name="new_password"> </td>
 		        </tr>
 		        <tr>
-		            <td>Credit</td>
-		            <td><?php echo $user["credit"];?></td>
+		            <td>Recharge: </td>
+		            <td><input type="text" name="transaction_id", placeholder="Enter transaction key"></td>
 		        </tr>
 		    </table>
-		</section>
-		<section class="custom-back1" style="padding-bottom: 100px; padding-top:50px">
-			<form action="./user/update.php" method="post">
-				Old Password: <input type="text" name="old_password"> * </br>
-				Name: <input type="text" name="name"> </br>
-				New Password: <input type="text" name="new_password"> </br>
-				Recharge: <input type="text" name="transaction_id", placeholder="Enter transaction key"> </br>
-				<button>Update</button>
-			</form>
-		</section>
+			<div class="updatebutton">
+				<button class="btn-lg">Update</button>	
+			</div>
+		</form>
 	</div>
+	
 
 
 	<?php

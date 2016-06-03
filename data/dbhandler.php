@@ -138,7 +138,7 @@ class DbHandler{
 			$sql = "SELECT * FROM $table Where name like '$name%'";
 		}
 		else $sql = "SELECT * FROM $table Where 1";
-		$sql = $sql . " ORDER BY update_time ASC";
+		//$sql = $sql . " ORDER BY update_time ASC";
 
 		//echo "$sql<br/>";
 		$result = $this->conn->query($sql);
@@ -220,12 +220,5 @@ public function drop_items($table, $key, $val, $type){
 		//echo $sql . "</br>";
 		$result =  $this->conn->query($sql);
 		return  $result;
-		// 		if ($this->conn->query($sql) === TRUE) {
-		// 			//echo "sql run successfully";
-		// 			return true;
-		// 		} else {
-		// 			//echo "Error running sql: " . $conn->error;
-		// 			return false;
-		// 		}
 	}
 }

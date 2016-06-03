@@ -33,9 +33,10 @@ class Handler{
 function forward($base, $method, $data = NULL){
 	
 	// our system always have 1 method name in url
+	//print_r($method);
 	if(count($method) === 1){
 		//if(count($params)) $this->parseParam();
-			
+		$_SESSION["left_panel"] = 1;
 		switch ($method[0]) {
 			case "":
 				include_once './home/home.php';
@@ -43,6 +44,14 @@ function forward($base, $method, $data = NULL){
 				
 			case "home":
 				include_once './home/home.php';
+				break;
+			case "cart":
+				include_once './cart/cart.php';
+				break;
+				
+			case "verify":
+				if(isset($_SESSION["id"])) failed("You Are Already Logged In");
+				emailVerify();
 				break;
 				
 			case "login":
@@ -54,11 +63,7 @@ function forward($base, $method, $data = NULL){
 				if(isset($_SESSION["id"])) failed("You Are Already Logged In");
 				include_once './user/signup.php';
 				break;
-				
-			case "account":
-				if(!isset($_SESSION["id"])) failed("You are not logged in");
-				$view = file_get_contents('http://localhost/');
-				break;
+		
 			case "sell":
 				if(!isset($_SESSION["id"])){
 					failed("You are not logged in");
@@ -69,6 +74,7 @@ function forward($base, $method, $data = NULL){
 			case "item":
 				getItem($base);
 				break;
+				
 			
 			case "products":
 				getProducts($base);
@@ -88,6 +94,9 @@ function forward($base, $method, $data = NULL){
 			case "error":
 				include_once './error.php';
 				break;
+			case "checkout":
+					include_once './cart/checkout.php';
+					break;
 				
 			default:
 				failed("WRONG URL");

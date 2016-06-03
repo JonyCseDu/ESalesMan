@@ -4,7 +4,7 @@ include_once 'handler.php';
 $host = "localhost";
 $user = "root";
 $pass = "root";
-$dbName = "ESalesMan";
+$dbName = "ESalesMen";
 
 $json = file_get_contents('php://input') or NULL;
 // $json = '{"id":"1","ret1":"password"}';

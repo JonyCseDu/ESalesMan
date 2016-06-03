@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 function jsonSend($url, $data){
 	$json = json_encode($data);
 
@@ -23,9 +25,11 @@ function  failed($msg){
 
 function getItem($base){
 	if(isset($_GET["id"])){
-		$tmp = ["id" => $_GET["id"]];
-		$url = 'http://localhost/business/product/get_product';
-		include_once './product/item.php';
+		$id = $_GET["id"];
+		$ret = jsonSend('http://localhost/business/product/get_product', ["id" => $id]);
+		$ret = json_decode($ret, true);
+		if(isset($ret["fail"])) failed("NO SUCH PRODUCT");
+		else include_once './product/item.php';
 	}
 	else{
 		failed("Product Id Absent");
@@ -37,10 +41,27 @@ function getItem($base){
 // $url = 'http://localhost/business/product/get_thumbnail';
 
 function getProducts($base){
-	if(!isset($_GET["category_id"])) $_GET["category_id"] = 1;
+	
+	if(!isset($_GET["category_id"])){
+		$_GET["category_id"] = 1;
+		$_SESSION["left_panel"] = 1;
+	}
+	else $_SESSION["left_panel"] = $_GET["category_id"];
 	$tmp = ["category_id" => $_GET["category_id"], "name" => $_GET["name"]];
+	//echo "OK : " . $_SESSION["left_panel"];
 	//print_r($tmp);
 	include_once './product/products.php';
 	
+}
+
+function emailVerify(){
+	//echo "hash: ". $_GET["hash"];
+	$ret = jsonSend('http://localhost/business/other/get_code', ["hash" => $_GET["hash"]]);
+	//echo $ret;
+	$ret = json_decode($ret, true);
+	$ret = jsonSend("http://localhost/business/user/update_verify", $ret);
+	//echo $ret;
+	if(isset($ret["fail"])) failed($ret["fail"]);
+	else include_once './user/login.php';
 }
 

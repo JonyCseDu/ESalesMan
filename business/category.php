@@ -8,16 +8,48 @@ function get_category($data){
 	echo jsonSend("get_item/Category/$id");
 }
 
+// $url = 'http://localhost/business/category/get_category';
+
+function get_additional_info($id){
+	echo jsonSend("get_specific/Category/", ["id" => $id, "ret1" => "additional_info"]);
+}
+
 // $_POST = ["id"=>"1"];
 // $url = 'http://localhost/business/category/get_category_name';
 function get_category_name($data){
 	$id = $data["id"];
-	echo jsonSend("get_specific/Category/", ["id" => $id, "ret1" => name]);
+	echo jsonSend("get_specific/Category/", ["id" => $id, "ret1" => "name"]);
 }
 
-$url = 'http://localhost/business/category/get_all';
+// $url = 'http://localhost/business/category/get_all_category';
 function get_all_category(){
 	echo jsonSend("get_all/Category", ["ret1" => "id", "ret2" => "name"]);
+}
+
+// $url = 'http://localhost/business/category/get_child_category';
+function get_child_category($data){
+	//echo "called";
+	$ret = jsonSend("get_specific/Category/", ["id" => $data["id"], "ret1" => "id", "ret2" => "name"]);
+	$ret = json_decode($ret, true);
+	
+	if(isset($ret["fail"])){
+		$ret = [["id" => $data["id"], "name"=> "No Category"]];
+	}
+	else{
+		$ret = [$ret];
+		$tmp = jsonSend("get_specific/Category/", ["parent_id" => $data["id"], "ret1" => "id", "ret2" => "name"]);
+		$tmp = json_decode($tmp, true);
+		if(!isset($tmp["fail"]) && count(tmp) > 0){
+			//if(count(tmp) == 1) $tmp = [$tmp];
+			foreach ($tmp as $val){
+				array_push($ret, $val);
+			}
+			
+		}
+	}
+	
+	
+	echo json_encode($ret);
 }
 
 

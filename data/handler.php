@@ -49,14 +49,10 @@ class Handler{
 			$this->jHandler->service($this->method[0], $json, NULL);
 		}
 		
-		else if($this->method[0] == "create_db"){
-			$this->jHandler->service($this->method[0]);
-		}
 		
-		else if($this->method[0] == "drop_db"){
-			$this->jHandler->service($this->method[0]);
+		else if($this->method[0] == "update_bid"){
+			$this->jHandler->service($this->method[0], $json);
 		}
-		
 		
 		else if($this->method[0] == "add_item"){
 			if(count($this->method) !== 2){
@@ -109,6 +105,15 @@ class Handler{
 			}
 			$this->jHandler->service($this->method[0], $json, $this->method[1]);
 		}
+		
+		else if($this->method[0] == "create_db"){
+			$this->jHandler->service($this->method[0]);
+		}
+		
+		else if($this->method[0] == "drop_db"){
+			$this->jHandler->service($this->method[0]);
+		}
+		
 		else{
 			failed("WRONG URL");
 		}

@@ -4,6 +4,12 @@
 
 <?php include_once('./home/header.php');?>
 
+<script>
+function myfunc(val){
+	if(val.trim().length == 0) alert("empty"); 
+}
+</script>
+
 
 
 <hr style="border-color: black">
@@ -24,21 +30,21 @@
                     <div class="form-group">
                         <label for="email" class="col-md-3 control-label">Email</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="email" placeholder="Email Address">
+                            <input type="text" class="form-control" name="email" placeholder="Email Address" required>
                         </div>
                     </div>
                         
                     <div class="form-group">
                         <label for="firstname" class="col-md-3 control-label">Name</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="name" placeholder="First Name">
+                            <input type="text" class="form-control" name="name" placeholder="First Name" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="password" class="col-md-3 control-label">Password</label>
                         <div class="col-md-9">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
                         </div>
                     </div>
 
@@ -58,18 +64,22 @@
                     <div class="form-group">
                         <!-- Button -->                                        
                         <div class="col-md-offset-3 col-md-9">
-                            <button type="submit" name="url" value="http://localhost/business/user/signup" class="signup">
+                            <button type="submit" name="url" value="http://localhost/business/user/signup" class="signup" id="signup">
                                 <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up
                             </button>
-                            <span style="margin-left:8px;">or</span>  
+                            <div class="alert alert-success alert-dismissable sign-up-success" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true" id ="hideme">&times;</button>
+                                Success! An verification email has been sent to your account. Check your email to verify.
+                            </div>
+
                         </div>
                     </div>
                     
-                    <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
-                        
-                        <div class="col-md-offset-3 col-md-9">
-                            <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="fa fa-facebook" aria-hidden="true"></i> Sign Up with Facebook</button>
-                        </div>                                           
+                    <div>
+                        <?php if($_SESSION["error"]){
+                        	echo $_SESSION["error"];
+                        }?>
+                                                                  
                             
                     </div>  
                 </form>
@@ -79,3 +89,26 @@
 </div>
 
 <?php include_once('./home/footer.php');?>
+
+
+<script>
+$(document).ready(function(){
+    var bad = 0;
+    $('#signupform :input').each(function (){
+        if ($.trim(this.value) == "") bad++;
+    });  
+
+    $('#signup').click(function(){
+        if(bad < 1) $('.sign-up-success').show()
+    }) 
+});
+
+</script>
+
+<script>
+$(document).ready(function(){  
+    $('#hideme').click(function () {
+        $('.sign-up-success').hide()
+    }); 
+});
+</script>
