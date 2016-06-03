@@ -17,18 +17,18 @@ Note: Step 3 & 4 depends on step 1 & 2
 ### Main Features:
 1. Used Three-tier Architecture.
 2. Email Verification for SignUp process
-3. Search Suggestion Can be bind with Category (Solved Using Ajax)
-4. Special left Panel Catagory Traversal
-5. Winning a bid Notification generated
+3. Search Suggestion along with searching by speific category (Solved Using Ajax)
+4. Catagory Traversal through a dynamic left panel
+5. Notification for bid winning
 
 ### Main Security:
 1. Keeping Only Presentation layer in public network and other 2 layers in private network can give us a better level of security.
 2. Only Specific views can be accessed that is registerd others are hidden. For example: one can access signup.php because that is registered as /signup but there is no way to access signupAction.php
-3. Sql injection Security added
+3. Sql injection proof
 
 ### User Feature:
 1. Can add Profile Picture
-2. Verified User Can Checkout Cart or Directly Buy a product
+2. Verified User Can buy products through Cart Checkout or Directly Buy a product
 3. Verified User Can Recharge his account with a Recharge key
 
 ### User Security: 
