@@ -19,7 +19,10 @@ Note: Step 3 & 4 depends on step 1 & 2
 2. Email Verification for SignUp process
 3. Search Suggestion along with searching by speific category (Solved Using Ajax)
 4. Catagory Traversal through a dynamic left panel
-5. Notification for bid winning
+5. Item listing(product adding) for verified user
+6. Buying product by adding it to cart
+7. Bidding for a product which is made available for auction by seller
+8. Notification for winning a bid
 
 ### Main Security:
 1. Keeping Only Presentation layer in public network and other 2 layers in private network can give us a better level of security.
