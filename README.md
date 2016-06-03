@@ -62,7 +62,7 @@ Note: Step 3 & 4 depends on step 1 & 2
 1. Cost is checked with User credit.
 
 ### *** Bid Procedure: 
-Bid process is happend when someone tries to view the product page. That is when someone tries to view the product page of the specific product then bid time is compared with the current time. If it succeed in time check then info is updated and notification is generated. So this event will happen only one time.
+Bid process happens when product type is auction and someone try to view the product page and current time is greater than the product's auction time. If this process passed then product's info is updated and notification is generated. As in this process product quantity decreases, So this process will happen once.
 
 # Screen-Shots:
 ### Home Page </br>
