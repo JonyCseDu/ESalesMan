@@ -64,7 +64,7 @@ Note: Step 3 & 4 depends on step 1 & 2
 ### *** Bid Procedure: 
 Bid process is happend when someone tries to view the product page. That is when someone tries to view the product page of the specific product then bid time is compared with the current time. If it succeed in time check then info is updated and notification is generated. So this event will happen only one time.
 
-# Screen-Shots
+# Screen-Shots:
 ### Home Page </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/1.png)
 
@@ -75,22 +75,26 @@ Bid process is happend when someone tries to view the product page. That is when
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/3.png)
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/4.png)
 
+### Login </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/5.png)
 
+### Profile </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/6.png)
 
+### Search </br>
+![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/70.png)
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/7.png)
 
+### Fiexed Price item </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/8.png)
 
+### Cart </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/9.png)
-
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/10.png)
 
+### Recharge </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/11.png)
-
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/12.png)
-
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/13.png)
 
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/14.png)
