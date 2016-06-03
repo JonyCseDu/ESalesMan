@@ -65,13 +65,14 @@ Note: Step 3 & 4 depends on step 1 & 2
 Bid process is happend when someone tries to view the product page. That is when someone tries to view the product page of the specific product then bid time is compared with the current time. If it succeed in time check then info is updated and notification is generated. So this event will happen only one time.
 
 ## Screen-Shots
-
+</br> Home Page </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/1.png)
 
+</br> Category Traverse </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/2.png)
 
+</br> Register </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/3.png)
-
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/4.png)
 
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/5.png)
