@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Esalesmen by JonyCseDu</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Esalesmen</h1>
+        <h2>Online E-commerce site for buying and selling products with bidding option.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/JonyCseDu/ESalesMen/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/JonyCseDu/ESalesMen/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/JonyCseDu/ESalesMen" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="esalesmen" class="anchor" href="#esalesmen" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ESalesMen</h1>
+
+<p>Online E-commerce site for buying and selling products with bidding option.</p>
+
+<h2>
+<a id="tools-used" class="anchor" href="#tools-used" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tools Used:</h2>
+
+<ol>
+<li>LAMP SERVER (Apache + Mysql + Php)</li>
+<li>CURL ( <a href="https://en.wikipedia.org/wiki/CURL">https://en.wikipedia.org/wiki/CURL</a> )</li>
+</ol>
+
+<h2>
+<a id="setting-up-environment" class="anchor" href="#setting-up-environment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setting Up Environment:</h2>
+
+<ol>
+<li>Set Up Mod Rewrite for Apache So that all request comes to index.php Using .htaccess ( <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_rewrite-for-apache-on-ubuntu-14-04">https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_rewrite-for-apache-on-ubuntu-14-04</a> )</li>
+<li>Place all the 4 folders(Presentation, Business, Data, Assets) to your localhost folder.</li>
+<li>Create Database ( http://localhost/data/create_db )</li>
+<li>Create All common Catagories ( http://localhost/assets/eSalesMen_data.php )
+Note: Step 3 &amp; 4 depends on step 1 &amp; 2</li>
+</ol>
+
+<h2>
+<a id="these-are-some-important-features-of-our-system" class="anchor" href="#these-are-some-important-features-of-our-system" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>These are Some important Features of our System:</h2>
+
+<h3>
+<a id="main-features" class="anchor" href="#main-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main Features:</h3>
+
+<ol>
+<li>Used Three-tier Architecture.</li>
+<li>Email Verification for SignUp process</li>
+<li>Search Suggestion along with searching by speific category (Solved Using Ajax)</li>
+<li>Catagory Traversal through a dynamic left panel</li>
+<li>Item listing(product adding) for verified user</li>
+<li>Buying product by adding it to cart</li>
+<li>Bidding for a product which is made available for auction by seller</li>
+<li>Notification for winning a bid</li>
+</ol>
+
+<h3>
+<a id="main-security" class="anchor" href="#main-security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main Security:</h3>
+
+<ol>
+<li>Keeping Only Presentation layer in public network and other 2 layers in private network can give us a better level of security.</li>
+<li>Only Specific views can be accessed that is registerd others are hidden. For example: one can access signup.php because that is registered as /signup but there is no way to access signupAction.php</li>
+<li>Sql injection proof</li>
+</ol>
+
+<h3>
+<a id="user-feature" class="anchor" href="#user-feature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Feature:</h3>
+
+<ol>
+<li>Can add Profile Picture</li>
+<li>Verified User Can buy products through Cart Checkout or Directly Buy a product</li>
+<li>Verified User Can Recharge his account with a Recharge key</li>
+</ol>
+
+<h3>
+<a id="user-security" class="anchor" href="#user-security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Security:</h3>
+
+<ol>
+<li>For signup email is checked if it is already registered or any email can be send.</li>
+<li>Old password is needed to update User Info or Recharge Account</li>
+</ol>
+
+<h3>
+<a id="product-feature" class="anchor" href="#product-feature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Product Feature:</h3>
+
+<ol>
+<li>For Selling a product Additional Info comes acoording to the Category (Solved Using Ajax)</li>
+<li>For Selling a product Bidding Info is only asked when the product type is 'auction'</li>
+<li>Add image of product</li>
+</ol>
+
+<h3>
+<a id="product-security" class="anchor" href="#product-security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Product Security:</h3>
+
+<ol>
+<li>Quantity is checked before adding or buying a product even you can't exceed the product quantity limit.</li>
+</ol>
+
+<h3>
+<a id="cart-feature" class="anchor" href="#cart-feature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cart Feature:</h3>
+
+<ol>
+<li>If Same Product added to cart Only quantity increases</li>
+<li>Possible to increase or decrease product quantity from cart. If quantity becomes zero product will be removed from cart.</li>
+</ol>
+
+<h3>
+<a id="cart-security" class="anchor" href="#cart-security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cart Security:</h3>
+
+<ol>
+<li>Before Checkout a Cart total cost of cart is compared with credit of a user.</li>
+<li>Quantity of each product of the cart is checked before checkout and error message shows which product is failed in quantity check.</li>
+</ol>
+
+<h3>
+<a id="notification-feature" class="anchor" href="#notification-feature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Notification Feature:</h3>
+
+<ol>
+<li>Notification is Generated when a user won a Bid.</li>
+<li>User can directly the product from notification.</li>
+</ol>
+
+<h3>
+<a id="notification-security" class="anchor" href="#notification-security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Notification Security:</h3>
+
+<ol>
+<li>Cost is checked with User credit.</li>
+</ol>
+
+<h3>
+<a id="-bid-procedure" class="anchor" href="#-bid-procedure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>*** Bid Procedure:</h3>
+
+<p>Bid process is happend when someone tries to view the product page. That is when someone tries to view the product page of the specific product then bid time is compared with the current time. If it succeed in time check then info is updated and notification is generated. So this event will happen only one time.</p>
+
+<h1>
+<a id="screen-shots" class="anchor" href="#screen-shots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screen-Shots:</h1>
+
+<h3>
+<a id="home-page-" class="anchor" href="#home-page-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Home Page </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/1.png" alt="image"></p>
+
+<h3>
+<a id="category-traverse-" class="anchor" href="#category-traverse-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Category Traverse </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/2.png" alt="image"></p>
+
+<h3>
+<a id="register-" class="anchor" href="#register-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Register </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/3.png" alt="image">
+<img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/4.png" alt="image"></p>
+
+<h3>
+<a id="login-" class="anchor" href="#login-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Login </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/5.png" alt="image"></p>
+
+<h3>
+<a id="profile-" class="anchor" href="#profile-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Profile </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/6.png" alt="image"></p>
+
+<h3>
+<a id="search-" class="anchor" href="#search-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Search </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/70.png" alt="image">
+<img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/7.png" alt="image"></p>
+
+<h3>
+<a id="fiexed-price-item-" class="anchor" href="#fiexed-price-item-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fiexed Price item </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/8.png" alt="image"></p>
+
+<h3>
+<a id="cart-" class="anchor" href="#cart-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cart </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/9.png" alt="image">
+<img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/10.png" alt="image"></p>
+
+<h3>
+<a id="recharge-" class="anchor" href="#recharge-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recharge </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/11.png" alt="image">
+<img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/12.png" alt="image">
+<img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/14.png" alt="image"></p>
+
+<h3>
+<a id="auction-productshowing-remaining-time-" class="anchor" href="#auction-productshowing-remaining-time-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Auction Product(Showing remaining time) </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/15.png" alt="image"></p>
+
+<h3>
+<a id="auction-product-comes-in-notification-" class="anchor" href="#auction-product-comes-in-notification-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Auction Product comes in notification </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/16.png" alt="image"></p>
+
+<h3>
+<a id="sell-product-" class="anchor" href="#sell-product-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sell Product </h3>
+
+<p><img src="https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/17.png" alt="image"></p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
