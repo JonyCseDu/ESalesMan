@@ -95,14 +95,15 @@ Bid process is happend when someone tries to view the product page. That is when
 ### Recharge </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/11.png)
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/12.png)
-![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/13.png)
-
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/14.png)
 
+### Auction Product(Showing remaining time) </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/15.png)
 
+### Auction Product comes in notification </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/16.png)
 
+### Sell Product </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/17.png)
 
 
