@@ -1,5 +1,2 @@
-1. Search Suggestion designing
-2. Cart final design
-3. profile page designing
-4. products page  image positioning
-5. 
+1. Making it accessible from any device Using $_SERVER
+2. Sort Products
