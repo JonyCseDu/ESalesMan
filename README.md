@@ -73,7 +73,7 @@ Bid process is happend when someone tries to view the product page. That is when
 
 ### Register </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/3.png)
-![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/4.png)
+![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/41.png)
 
 ### Login </br>
 ![image](https://raw.githubusercontent.com/JonyCseDu/ESalesMen/master/image/5.png)
